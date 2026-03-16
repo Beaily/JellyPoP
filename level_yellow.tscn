@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://colkbabafegp3"]
+[gd_scene load_steps=5 format=3 uid="uid://coow7proigxnc"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_xjl28"]
 
@@ -10,7 +10,6 @@ size = Vector3(0.170898, 0.380833, 0.17041)
 [sub_resource type="BoxShape3D" id="BoxShape3D_gmyxx"]
 
 [node name="Level_Yellow" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.493895, 0)
 
 [node name="zhuzi" type="StaticBody3D" parent="."]
 transform = Transform3D(11.5132, 0, 0, 0, 35.8883, 0, 0, 0, 7.705, -1.82322, 3.55736, -1.75743)
