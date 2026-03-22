@@ -1,33 +1,186 @@
-[gd_scene load_steps=6 format=3 uid="uid://vs0og8syt7w5"]
+[gd_scene load_steps=25 format=3 uid="uid://vs0og8syt7w5"]
 
 [ext_resource type="Script" uid="uid://dingslcua1c36" path="res://player.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://84la06qge146" path="res://Scenes/levels/level_1.tscn" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://dms8mne11hic3" path="res://Arts/white jelly.png" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://colkbabafegp3" path="res://Scenes/levels/level_yellow.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://ebq266m7ly7q" path="res://Scenes/canvas_layer.tscn" id="5_lquwl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h2yge"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bvp3"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(0, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lquwl"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(48, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mycd"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(96, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_272bh"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(144, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vw27"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kek77"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4c57u"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efxa6"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dg77c"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycdy4"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w48qg"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vivmo"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(144, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cqfq"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(0, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yaehf"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(48, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_074og"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(96, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cegan"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(144, 96, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_82xsv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bvp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lquwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mycd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_272bh")
+}],
+"loop": true,
+"name": &"back_run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vw27")
+}],
+"loop": true,
+"name": &"front_run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kek77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4c57u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efxa6")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dg77c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycdy4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w48qg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vivmo")
+}],
+"loop": true,
+"name": &"left_run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cqfq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yaehf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_074og")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cegan")
+}],
+"loop": true,
+"name": &"right_run",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0xm2m"]
 
 [node name="Main" type="Node3D"]
 
-[node name="Player" type="CharacterBody3D" parent="."]
+[node name="Player" type="CharacterBody3D" parent="." groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.253762, 0, 23.8713)
-collision_mask = 5
+collision_mask = 25
 script = ExtResource("1_ig7tw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37655, 0)
+transform = Transform3D(1.36626, 0, 0.594494, 0, 1.49, 0, -0.594494, 0, 1.36626, -0.0381327, 1.08935, 0)
 shape = SubResource("CapsuleShape3D_h2yge")
 
 [node name="Visual" type="Node3D" parent="Player"]
 
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Player/Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04461, 0)
+pixel_size = 0.07
+billboard = 2
+sprite_frames = SubResource("SpriteFrames_82xsv")
+animation = &"front_run"
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player/Visual"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.41972, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_0xm2m")
 skeleton = NodePath("../..")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(0.862416, -0.0324271, -0.50516, 0.00406455, 0.998357, -0.0571473, 0.506184, 0.0472315, 0.861131, -0.304543, 2.76093, 5.0322)
+transform = Transform3D(0.0434755, 0.106401, 0.993372, 0.00190904, 0.994302, -0.106584, -0.999053, 0.00653018, 0.0430247, 10.086, 0.570658, -2.75222)
+
+[node name="Camera3D2" type="Camera3D" parent="Player"]
+transform = Transform3D(0.989202, 0.033786, 0.142612, -0.0183981, 0.993995, -0.107871, -0.1454, 0.104082, 0.983883, 0.236586, 1.86418, 3.53175)
 
 [node name="Level_Black" parent="." instance=ExtResource("2_0xm2m")]
 
@@ -36,8 +189,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.829496, -3.58207, -32.6903)
 visible = false
 
 [node name="Level_Green" type="Node3D" parent="."]
+visible = false
 
 [node name="Level_Pink" type="Node3D" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 light_energy = 2.555
+
+[node name="UI" parent="." instance=ExtResource("5_lquwl")]

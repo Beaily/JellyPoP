@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ebq266m7ly7q"]
+
+[ext_resource type="Script" uid="uid://kbr0btupvcrg" path="res://canvas_layer.gd" id="1_5oaki"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_5oaki")
+
+[node name="TokenLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Token: 0"

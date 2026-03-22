@@ -1,18 +1,15 @@
 [gd_scene load_steps=6 format=3 uid="uid://84la06qge146"]
 
+[ext_resource type="Script" uid="uid://k8h7ayo38hbm" path="res://Scenes/levels/token.gd" id="1_mkwgf"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
 size = Vector3(1, 1, 1.08768)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5o0x"]
-albedo_color = Color(1, 0.415686, 0.0509804, 1)
+[sub_resource type="SphereShape3D" id="SphereShape3D_2mbx3"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_mkwgf"]
-material = SubResource("StandardMaterial3D_f5o0x")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_2mbx3"]
-size = Vector3(0.859, 3.016, 0.074)
+[sub_resource type="SphereMesh" id="SphereMesh_yffda"]
 
 [node name="Level_1" type="Node3D"]
 
@@ -100,15 +97,15 @@ mesh = SubResource("BoxMesh_ig7tw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.256788, -1.32598, 0.450482)
 shape = SubResource("BoxShape3D_0xm2m")
 
-[node name="YellowBlock" type="StaticBody3D" parent="."]
-transform = Transform3D(3.243, 0, 0, 0, 0.411, 0, 0, 0, 17.74, -0.0888455, -1.30843, -19.1163)
-collision_layer = 5
+[node name="Token" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, 0, 3.39214, 10.7052)
+script = ExtResource("1_mkwgf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="YellowBlock"]
-transform = Transform3D(0.3, 0, 0, 0, 2.899, 0, 0, 0, 0.077, 0.695731, 6.627, 2.04548)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Token"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_2mbx3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Token"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
 layers = 16
-mesh = SubResource("SphereMesh_mkwgf")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="YellowBlock"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01774, 8.03688, 2.02234)
-shape = SubResource("BoxShape3D_2mbx3")
+mesh = SubResource("SphereMesh_yffda")
