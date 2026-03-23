@@ -78,7 +78,7 @@ layers = 4
 mesh = SubResource("BoxMesh_xjl28")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Platform5"]
-transform = Transform3D(1, 0, 0, 0, 1, -0.000104729, 0, 0.00010472, 1, 0.256788, -12.2889, 0.353408)
+transform = Transform3D(1, 0, 0, 0, 1, -0.000103474, 0, 0.000104716, 1, 0.256788, -10.9378, 0.43428)
 shape = SubResource("BoxShape3D_gmyxx")
 
 [node name="Platform6" type="StaticBody3D" parent="."]

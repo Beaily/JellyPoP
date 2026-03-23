@@ -192,6 +192,7 @@ visible = false
 visible = false
 
 [node name="Level_Pink" type="Node3D" parent="."]
+visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 light_energy = 2.555

@@ -5,7 +5,14 @@
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_5oaki")
 
-[node name="TokenLabel" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="TokenLabel" type="RichTextLabel" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_right = 83.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_horizontal = 6
+bbcode_enabled = true
 text = "Token: 0"
