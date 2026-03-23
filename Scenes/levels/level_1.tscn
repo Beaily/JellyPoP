@@ -129,7 +129,6 @@ mesh = SubResource("SphereMesh_yffda")
 transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, 3.92246, 2.24764, -22.4385)
 collision_layer = 2
 script = ExtResource("1_mkwgf")
-value = 2
 color = "green"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="gToken1"]
@@ -142,10 +141,9 @@ layers = 16
 mesh = SubResource("SphereMesh_cru1l")
 
 [node name="gToken2" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.768433, 2.59383, -34.9542)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.818733, 2.68042, -37.6564)
 collision_layer = 2
 script = ExtResource("1_mkwgf")
-value = 2
 color = "green"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="gToken2"]
@@ -158,10 +156,9 @@ layers = 16
 mesh = SubResource("SphereMesh_cru1l")
 
 [node name="gToken3" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, 5.80602, 0.670227, -10.3202)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, 5.64016, 0.670227, -14.4788)
 collision_layer = 2
 script = ExtResource("1_mkwgf")
-value = 2
 color = "green"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="gToken3"]

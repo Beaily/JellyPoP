@@ -1,6 +1,18 @@
 extends CharacterBody3D
 
 # =========================
+# level change
+# =========================
+var saved_black_position = Vector3.ZERO 
+var level_yellow_triggered = false
+var level_green_triggered = false
+var level_pink_triggered = false    
+var start_position = Vector3.ZERO   
+
+var levels = {}
+var current_level = "black"    
+
+# =========================
 # 移动参数
 # =========================
 var forward_speed = 8
@@ -8,83 +20,111 @@ var steer_speed = 6
 var jump_force = 8
 var gravity = 20
 
-
-# 左右控制
 var steer_input = 0.0
 var max_steer = 1.0
 
+# =========================
 # token
-var token_count = 0
-var current_color = "none"
+# =========================
 var token_yellow = 0
 var token_green = 0
+var token_pink = 0
 
-
+# =========================
+# 节点引用
+# =========================
 @onready var sprite = $Visual/AnimatedSprite3D
 @onready var token_label = get_tree().get_root().get_node("Main/UI/TokenLabel")
 
+@onready var level_black = get_tree().get_root().get_node("Main/Level_Black")
+@onready var level_yellow = get_tree().get_root().get_node("Main/Level_Yellow")
+@onready var level_green = get_tree().get_root().get_node("Main/Level_Green")
+@onready var level_pink = get_tree().get_root().get_node("Main/Level_Pink")
 
+# ✅ 相机
+@onready var cam_side = $Camera3D
+@onready var cam_back = $Camera3D2
 
+# =========================
+# 初始化
+# =========================
 func _ready():
-	# 稍微延迟一丁点时间，确保所有节点都加载完毕
-	await get_tree().process_frame
-	
-	# 从根节点开始递归清理
-	clean_ghost_nodes(get_tree().root)
+	start_position = global_position
 
-# 递归函数：遍历所有子孙节点
-func clean_ghost_nodes(current_node: Node):
-	for child in current_node.get_children():
-		
-		# --- 判定条件：你可以根据名字或者类型来抓捕它们 ---
-		# 比如名字里带 "Cube" 或者 "Orange"
-		if "Cube" in child.name or "Orange" in child.name:
-			
-			# 1. 强制关闭碰撞层（解决挡路问题）
-			if child is CollisionObject3D:
-				child.collision_layer = 0
-				child.collision_mask = 0
-				# 如果它有子节点是 CollisionShape3D，也把它禁用
-				for sub_child in child.get_children():
-					if sub_child is CollisionShape3D:
-						sub_child.disabled = true
-			
-			# 2. 彻底移除（如果你连看都不想看到它）
-			child.queue_free()
-			print("已成功驱逐幽灵节点: ", child.name)
-		
-		# 继续递归查找子节点的子节点
-		clean_ghost_nodes(child)
+	# 初始化 levels（关键）
+	levels = {
+		"black": level_black,
+		"yellow": level_yellow,
+		"green": level_green,
+		"pink": level_pink
+	}
+
+	# 初始化关卡状态
+	for key in levels.keys():
+		var lvl = levels[key]
+
+		if lvl == null:
+			push_error("Level missing: " + key)
+			continue
+
+		if key == "black":
+			lvl.visible = true
+			lvl.process_mode = Node.PROCESS_MODE_ALWAYS
+		else:
+			lvl.visible = false
+			lvl.process_mode = Node.PROCESS_MODE_DISABLED
+
+	current_level = "black"
+
+	# ✅ 初始化相机
+	switch_camera("black")
+
+# =========================
+# 相机切换（新增）
+# =========================
+func switch_camera(mode):
+
+	if cam_side == null or cam_back == null:
+		push_error("Camera missing")
+		return
+
+	# 强制关闭
+	cam_side.current = false
+	cam_back.current = false
+
+	await get_tree().process_frame   # ⭐ 关键（确保切换刷新）
+
+	if mode == "black":
+		cam_side.current = true
+		print("切换到侧面 camera")
+
+	elif mode == "yellow":
+		cam_back.current = true
+		print("切换到背后 camera")
+
+
 # =========================
 # 主逻辑
 # =========================
 func _physics_process(delta):
 
-	# 重力
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	# 自动前进（固定方向）
 	velocity.z = -forward_speed
-
-	# 左右移动
 	velocity.x = steer_input * steer_speed
 
-	# 跳跃
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and is_on_floor():
 		velocity.y = jump_force
 
 	move_and_slide()
 
-	# 更新角色视觉（方向 + 状态）
 	update_sprite()
 
-	# 让角色慢慢回到中间（平滑）
 	steer_input = lerp(steer_input, 0.0, 4 * delta)
 
-
 # =========================
-# 输入（滚轮控制左右）
+# 输入
 # =========================
 func _input(event):
 
@@ -96,50 +136,128 @@ func _input(event):
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			steer_input += 0.4
 
-	# 限制最大偏移
 	steer_input = clamp(steer_input, -max_steer, max_steer)
 
+# =========================
+# 动画
+# =========================
 func update_sprite():
 
-	# jump
 	if not is_on_floor():
 		play_anim("jump")
 		return
 
-	# scroll wheel
 	var anim = "front_run"
 
 	if steer_input < -0.3:
 		anim = "left_run"
 	elif steer_input > 0.3:
 		anim = "right_run"
-	else:
-		anim = "front_run"
 
 	play_anim(anim)
 
 func play_anim(anim_name):
-
 	if sprite.animation != anim_name:
 		sprite.play(anim_name)
 
+# =========================
+# Token
+# =========================
 func collect_token(value, color):
-	# 根据颜色增加对应的计数
+
 	if color == "yellow":
 		token_yellow += value
+		if token_yellow >= 2 and not level_yellow_triggered:
+			trigger_level_swap("yellow")
+
 	elif color == "green":
 		token_green += value
-		
+		if token_green >= 2 and not level_green_triggered:
+			trigger_level_swap("green")
+
+	elif color == "pink":
+		token_pink += value
+		if token_pink >= 2 and not level_pink_triggered:
+			trigger_level_swap("pink")
+
 	update_ui()
-	
+
+# =========================
+# 切关卡
+# =========================
+func trigger_level_swap(color):
+
+	if color == "yellow":
+		level_yellow_triggered = true
+	elif color == "green":
+		level_green_triggered = true
+	elif color == "pink":
+		level_pink_triggered = true
+
+	if current_level == "black":
+		saved_black_position = global_position
+
+	global_position = start_position
+
+	# 关闭所有关卡
+	for lvl in levels.values():
+		if lvl == null:
+			continue
+		lvl.visible = false
+		lvl.process_mode = Node.PROCESS_MODE_DISABLED
+
+	# 打开目标关卡
+	var target = levels.get(color)
+
+	if target:
+		target.visible = true
+		target.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	current_level = color
+
+	# 相机切换（只对 yellow）
+	if color == "yellow":
+		switch_camera("yellow")
+
+	print("切换到 Level_", color)
+
+# =========================
+# UI
+# =========================
 func update_ui():
-	# [color=颜色代码]内容[/color] 是 BBCode 的语法
-	# 我们用分号隔开：总数 ; 黄色 ; 绿色
-	var total = token_yellow + token_green
-	
+
+	var total = token_yellow + token_green + token_pink
+
 	var text = "Tokens: "
-	text += str(total) + " | " # 总数（白色）
-	text += "[color=yellow]" + str(token_yellow) + "[/color] ; " # 黄色数字
-	text += "[color=green]" + str(token_green) + "[/color]"    # 绿色数字
-	
+	text += str(total) + " | "
+	text += "[color=yellow]" + str(token_yellow) + "[/color] ; "
+	text += "[color=green]" + str(token_green) + "[/color] ; "
+	text += "[color=pink]" + str(token_pink) + "[/color]"
+
 	token_label.text = text
+
+# =========================
+# 返回 black
+# =========================
+func return_to_black():
+
+	global_position = saved_black_position
+
+	for lvl in levels.values():
+		if lvl == null:
+			continue
+		lvl.visible = false
+		lvl.process_mode = Node.PROCESS_MODE_DISABLED
+
+	var black = levels.get("black")
+
+	if black:
+		black.visible = true
+		black.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	current_level = "black"
+
+	# 相机切回侧面
+	switch_camera("black")
+
+	print("返回 Level_Black")

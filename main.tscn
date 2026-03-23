@@ -176,17 +176,19 @@ visible = false
 mesh = SubResource("CapsuleMesh_0xm2m")
 skeleton = NodePath("../..")
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(0.0434755, 0.106401, 0.993372, 0.00190904, 0.994302, -0.106584, -0.999053, 0.00653018, 0.0430247, 10.086, 0.570658, -2.75222)
+[node name="Camera3D" type="Camera3D" parent="Player" groups=["cameras"]]
+transform = Transform3D(0.0434755, 0.106401, 0.993372, 0.00190904, 0.994302, -0.106584, -0.999053, 0.00653018, 0.0430246, 11.3339, 0.570658, -2.75222)
+visible = false
+current = true
 
-[node name="Camera3D2" type="Camera3D" parent="Player"]
-transform = Transform3D(0.989202, 0.033786, 0.142612, -0.0183981, 0.993995, -0.107871, -0.1454, 0.104082, 0.983883, 0.236586, 1.86418, 3.53175)
+[node name="Camera3D2" type="Camera3D" parent="Player" groups=["cameras"]]
+transform = Transform3D(0.990147, -0.017919, 0.138883, -0.0185237, 0.966304, 0.256738, -0.138803, -0.25678, 0.956451, 0.236586, 3.36137, 3.1861)
 
 [node name="Level_Black" parent="." instance=ExtResource("2_0xm2m")]
+visible = false
 
 [node name="Level_Yellow" parent="." instance=ExtResource("3_h2yge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.829496, -3.58207, -32.6903)
-visible = false
+transform = Transform3D(1.31918, 0, 0, 0, 1.03521, 0, 0, 0, 1.02545, 1.3024, -4.50842, -33.2496)
 
 [node name="Level_Green" type="Node3D" parent="."]
 visible = false
