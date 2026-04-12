@@ -185,10 +185,10 @@ current = true
 transform = Transform3D(0.990147, -0.017919, 0.138883, -0.0185237, 0.966304, 0.256738, -0.138803, -0.25678, 0.956451, 0.236586, 3.36137, 3.1861)
 
 [node name="Level_Black" parent="." instance=ExtResource("2_0xm2m")]
-visible = false
 
 [node name="Level_Yellow" parent="." instance=ExtResource("3_h2yge")]
 transform = Transform3D(1.31918, 0, 0, 0, 1.03521, 0, 0, 0, 1.02545, 1.3024, -4.50842, -33.2496)
+visible = false
 
 [node name="Level_Green" type="Node3D" parent="."]
 visible = false
