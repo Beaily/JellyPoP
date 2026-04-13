@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://84la06qge146"]
+[gd_scene load_steps=15 format=3 uid="uid://84la06qge146"]
 
 [ext_resource type="Script" uid="uid://d0daiyetuja7d" path="res://Scenes/levels/return_trigger.gd" id="1_2mbx3"]
 [ext_resource type="Script" uid="uid://k8h7ayo38hbm" path="res://Scenes/levels/token.gd" id="1_mkwgf"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_cru1l"]
+[ext_resource type="Script" uid="uid://dfa8ewqyd0iaf" path="res://Scenes/levels/end_tirrget.gd" id="1_yffda"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
 
@@ -35,14 +34,9 @@ albedo_color = Color(0.917647, 0.239216, 0.921569, 0.478431)
 [sub_resource type="SphereMesh" id="SphereMesh_qyddi"]
 material = SubResource("StandardMaterial3D_0lml3")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_cru1l"]
+
 [node name="Level_1" type="Node3D"]
-
-[node name="EndTirrget" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.297, -87.0843)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EndTirrget"]
-transform = Transform3D(28.337, 0, 0, 0, 8.485, 0, 0, 0, 9.046, 7.36025, -5.34274, 1.36156)
-shape = SubResource("SphereShape3D_cru1l")
 
 [node name="Based Platform" type="StaticBody3D" parent="."]
 transform = Transform3D(12.0653, 0, 0, 0, 0.465, 0, 0, 0, 56.085, 0, 0, -7.25882)
@@ -544,4 +538,13 @@ transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
 layers = 16
 mesh = SubResource("SphereMesh_qyddi")
 
+[node name="EndTirrget" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.297, -87.0843)
+script = ExtResource("1_yffda")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EndTirrget"]
+transform = Transform3D(28.337, 0, 0, 0, 8.485, 0, 0, 0, 9.046, 7.36025, -5.34274, 1.36156)
+shape = SubResource("SphereShape3D_cru1l")
+
 [connection signal="body_entered" from="Platform14/MeshInstance3D/ReturnTrigger" to="Platform14/MeshInstance3D/ReturnTrigger" method="_on_body_entered"]
+[connection signal="body_entered" from="EndTirrget" to="EndTirrget" method="_on_body_entered"]

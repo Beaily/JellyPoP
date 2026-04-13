@@ -167,17 +167,17 @@ func collect_token(value, color):
 
 	if color == "yellow":
 		token_yellow += value
-		if token_yellow >= 2 and not level_yellow_triggered:
+		if token_yellow >= 10 and not level_yellow_triggered:
 			trigger_level_swap("yellow")
 
 	elif color == "green":
 		token_green += value
-		if token_green >= 2 and not level_green_triggered:
+		if token_green >= 10 and not level_green_triggered:
 			trigger_level_swap("green")
 
 	elif color == "pink":
 		token_pink += value
-		if token_pink >= 2 and not level_pink_triggered:
+		if token_pink >= 10 and not level_pink_triggered:
 			trigger_level_swap("pink")
 
 	update_ui()
@@ -261,3 +261,29 @@ func return_to_black():
 	switch_camera("black")
 
 	print("返回 Level_Black")
+
+# 游戏结束
+# =========================
+func reach_end_target():
+	print("玩家觸發了終點函數！") # 調試 1
+	
+	var total_score = token_yellow + token_green + token_pink
+	
+	# 這裡的路徑非常關鍵，必須和你場景樹結構完全一致
+	var ui_canvas = get_tree().get_root().get_node("Main/UI")
+	
+	if ui_canvas:
+		print("找到 UI 節點了") # 調試 2
+		if ui_canvas.has_method("show_game_over"):
+			print("準備調用 UI 的顯示函數") # 調試 3
+			ui_canvas.show_game_over(total_score)
+		else:
+			print("錯誤：UI 節點上沒有 show_game_over 方法！")
+	else:
+		print("錯誤：找不到路徑為 Main/UI 的節點！")
+	
+	# 停止玩家移動
+	forward_speed = 0 
+	set_physics_process(false)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
