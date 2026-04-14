@@ -1,6 +1,15 @@
 extends CharacterBody3D
 
 # =========================
+# 初始标准参数 (改这里，所有关卡的基础值都会变)
+# =========================
+const DEFAULT_SPEED = 8.0
+const DEFAULT_JUMP = 8.0
+const DEFAULT_SCALE = Vector3(1.0, 1.0, 1.0)
+# 在最上方移动参数区修改
+const DEFAULT_GRAVITY = 10.0  
+
+# =========================
 # level change
 # =========================
 var saved_black_position = Vector3.ZERO 
@@ -8,18 +17,19 @@ var level_yellow_triggered = false
 var level_green_triggered = false
 var level_pink_triggered = false    
 var start_position = Vector3.ZERO   
+# game endding
+var falling_timer = 0.0
 
 var levels = {}
 var current_level = "black"    
 
 # =========================
-# 移动参数
+# 移动参数 (当前实际运行值)
 # =========================
-var forward_speed = 8
+var forward_speed = DEFAULT_SPEED
 var steer_speed = 6
-var jump_force = 8
-var gravity = 20
-
+var jump_force = DEFAULT_JUMP
+var gravity = DEFAULT_GRAVITY
 var steer_input = 0.0
 var max_steer = 1.0
 
@@ -44,6 +54,7 @@ var token_pink = 0
 # ✅ 相机
 @onready var cam_side = $Camera3D
 @onready var cam_back = $Camera3D2
+@onready var cam_farside = $Camera3D3
 
 # =========================
 # 初始化
@@ -51,7 +62,6 @@ var token_pink = 0
 func _ready():
 	start_position = global_position
 
-	# 初始化 levels（关键）
 	levels = {
 		"black": level_black,
 		"yellow": level_yellow,
@@ -59,10 +69,8 @@ func _ready():
 		"pink": level_pink
 	}
 
-	# 初始化关卡状态
 	for key in levels.keys():
 		var lvl = levels[key]
-
 		if lvl == null:
 			push_error("Level missing: " + key)
 			continue
@@ -75,41 +83,42 @@ func _ready():
 			lvl.process_mode = Node.PROCESS_MODE_DISABLED
 
 	current_level = "black"
-
-	# ✅ 初始化相机
 	switch_camera("black")
 
 # =========================
-# 相机切换（新增）
+# 相机切换 (修复逻辑)
 # =========================
 func switch_camera(mode):
-
-	if cam_side == null or cam_back == null:
-		push_error("Camera missing")
+	if cam_side == null or cam_back == null or cam_farside == null:
 		return
 
-	# 强制关闭
+	# 全部重置为非当前
 	cam_side.current = false
 	cam_back.current = false
+	cam_farside.current = false
 
-	await get_tree().process_frame   # ⭐ 关键（确保切换刷新）
+	await get_tree().process_frame
 
+	# 根据关卡激活对应镜头
 	if mode == "black":
 		cam_side.current = true
-		print("切换到侧面 camera")
-
 	elif mode == "yellow":
 		cam_back.current = true
-		print("切换到背后 camera")
-
+	elif mode == "green":
+		cam_farside.current = true
 
 # =========================
 # 主逻辑
 # =========================
 func _physics_process(delta):
-
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+		falling_timer += delta
+		if falling_timer >= 3.0:
+			game_over_by_falling() # 调用失败函数
+	else:
+		# 只要脚沾地，计时器就归零
+		falling_timer = 0.0
 
 	velocity.z = -forward_speed
 	velocity.x = steer_input * steer_speed
@@ -118,42 +127,33 @@ func _physics_process(delta):
 		velocity.y = jump_force
 
 	move_and_slide()
-
 	update_sprite()
-
 	steer_input = lerp(steer_input, 0.0, 4 * delta)
 
 # =========================
 # 输入
 # =========================
 func _input(event):
-
 	if event is InputEventMouseButton:
-
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			steer_input -= 0.4
-
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			steer_input += 0.4
-
 	steer_input = clamp(steer_input, -max_steer, max_steer)
 
 # =========================
 # 动画
 # =========================
 func update_sprite():
-
 	if not is_on_floor():
 		play_anim("jump")
 		return
 
 	var anim = "front_run"
-
 	if steer_input < -0.3:
 		anim = "left_run"
 	elif steer_input > 0.3:
 		anim = "right_run"
-
 	play_anim(anim)
 
 func play_anim(anim_name):
@@ -164,29 +164,24 @@ func play_anim(anim_name):
 # Token
 # =========================
 func collect_token(value, color):
-
 	if color == "yellow":
 		token_yellow += value
 		if token_yellow >= 10 and not level_yellow_triggered:
 			trigger_level_swap("yellow")
-
 	elif color == "green":
 		token_green += value
 		if token_green >= 1 and not level_green_triggered:
 			trigger_level_swap("green")
-
 	elif color == "pink":
 		token_pink += value
 		if token_pink >= 10 and not level_pink_triggered:
 			trigger_level_swap("pink")
-
 	update_ui()
 
 # =========================
-# 切关卡
+# 切换关卡逻辑
 # =========================
 func trigger_level_swap(color):
-
 	if color == "yellow":
 		level_yellow_triggered = true
 	elif color == "green":
@@ -199,91 +194,100 @@ func trigger_level_swap(color):
 
 	global_position = start_position
 
-	# 关闭所有关卡
+	# 关卡显示状态切换
 	for lvl in levels.values():
-		if lvl == null:
-			continue
-		lvl.visible = false
-		lvl.process_mode = Node.PROCESS_MODE_DISABLED
+		if lvl:
+			lvl.visible = false
+			lvl.process_mode = Node.PROCESS_MODE_DISABLED
 
-	# 打开目标关卡
 	var target = levels.get(color)
-
 	if target:
 		target.visible = true
 		target.process_mode = Node.PROCESS_MODE_ALWAYS
 
 	current_level = color
 
-	# 相机切换（只对 yellow）
+	# --- 变身与数值处理 ---
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	
+	if color == "green":
+		# 巨人模式：6倍大，速度和跳跃必须大幅提升才有快感
+		tween.tween_property(self, "scale", Vector3(6, 6, 6), 0.5)
+		forward_speed = 45.0  
+		jump_force = 25.0
+		gravity = 50.0     
+	else:
+		# 还原回初始标准参数
+		tween.tween_property(self, "scale", DEFAULT_SCALE, 0.5)
+		forward_speed = DEFAULT_SPEED
+		jump_force = DEFAULT_JUMP
+		gravity = DEFAULT_GRAVITY
+
+	# 切换对应镜头
 	if color == "yellow":
 		switch_camera("yellow")
-
-	print("切换到 Level_", color)
-
-# =========================
-# UI
-# =========================
-func update_ui():
-
-	var total = token_yellow + token_green + token_pink
-
-	var text = "Tokens: "
-	text += str(total) + " | "
-	text += "[color=yellow]" + str(token_yellow) + "[/color] ; "
-	text += "[color=green]" + str(token_green) + "[/color] ; "
-	text += "[color=pink]" + str(token_pink) + "[/color]"
-
-	token_label.text = text
+	elif color == "green":
+		switch_camera("green")
+	else:
+		switch_camera("black")
 
 # =========================
-# 返回 black
+# 返回 black (彻底还原)
 # =========================
 func return_to_black():
-
 	global_position = saved_black_position
 
 	for lvl in levels.values():
-		if lvl == null:
-			continue
-		lvl.visible = false
-		lvl.process_mode = Node.PROCESS_MODE_DISABLED
+		if lvl:
+			lvl.visible = false
+			lvl.process_mode = Node.PROCESS_MODE_DISABLED
 
 	var black = levels.get("black")
-
 	if black:
 		black.visible = true
 		black.process_mode = Node.PROCESS_MODE_ALWAYS
 
 	current_level = "black"
+	
+	# ✨ 核心修复：使用初始常量进行一键还原
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "scale", DEFAULT_SCALE, 0.4)
+	
+	forward_speed = DEFAULT_SPEED
+	jump_force = DEFAULT_JUMP
+	gravity = DEFAULT_GRAVITY
 
-	# 相机切回侧面
 	switch_camera("black")
 
-	print("返回 Level_Black")
-
-# 游戏结束
 # =========================
+# UI 与 结束
+# =========================
+func update_ui():
+	var total = token_yellow + token_green + token_pink
+	var text = "Tokens: " + str(total) + " | "
+	text += "[color=yellow]" + str(token_yellow) + "[/color] ; "
+	text += "[color=green]" + str(token_green) + "[/color] ; "
+	text += "[color=pink]" + str(token_pink) + "[/color]"
+	token_label.text = text
+
 func reach_end_target():
-	print("玩家觸發了終點函數！") # 調試 1
-	
 	var total_score = token_yellow + token_green + token_pink
-	
-	# 這裡的路徑非常關鍵，必須和你場景樹結構完全一致
 	var ui_canvas = get_tree().get_root().get_node("Main/UI")
+	if ui_canvas and ui_canvas.has_method("show_game_over"):
+		ui_canvas.show_game_over(total_score)
 	
-	if ui_canvas:
-		print("找到 UI 節點了") # 調試 2
-		if ui_canvas.has_method("show_game_over"):
-			print("準備調用 UI 的顯示函數") # 調試 3
-			ui_canvas.show_game_over(total_score)
-		else:
-			print("錯誤：UI 節點上沒有 show_game_over 方法！")
-	else:
-		print("錯誤：找不到路徑為 Main/UI 的節點！")
-	
-	# 停止玩家移動
 	forward_speed = 0 
 	set_physics_process(false)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+# =========================
+# 掉落死亡处理
+# =========================
+func game_over_by_falling():
+	print("掉入深渊太久了！游戏结束")
 	
+	# 重置计时器防止重复触发
+	falling_timer = 0.0
+	reach_end_target()

@@ -20,12 +20,12 @@ albedo_color = Color(1, 1, 0.243137, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_yffda"]
 material = SubResource("StandardMaterial3D_mkwgf")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cru1l"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yffda"]
 vertex_color_is_srgb = true
 albedo_color = Color(0.164706, 0.67451, 0.156863, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_cru1l"]
-material = SubResource("StandardMaterial3D_cru1l")
+material = SubResource("StandardMaterial3D_yffda")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lml3"]
 vertex_color_is_srgb = true
