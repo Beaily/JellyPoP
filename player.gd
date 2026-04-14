@@ -172,7 +172,7 @@ func collect_token(value, color):
 
 	elif color == "green":
 		token_green += value
-		if token_green >= 1 and not level_green_triggered:
+		if token_green >= 10 and not level_green_triggered:
 			trigger_level_swap("green")
 
 	elif color == "pink":

@@ -1,4 +1,0 @@
-[gd_scene format=3 uid="uid://cmakpultjn4fd"]
-
-[node name="Level_Pink" type="Node3D"]
-visible = false

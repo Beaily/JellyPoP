@@ -1,12 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://vs0og8syt7w5"]
+[gd_scene load_steps=25 format=3 uid="uid://vs0og8syt7w5"]
 
 [ext_resource type="Script" uid="uid://dingslcua1c36" path="res://player.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://84la06qge146" path="res://Scenes/levels/level_1.tscn" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://dms8mne11hic3" path="res://Arts/white jelly.png" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://colkbabafegp3" path="res://Scenes/levels/level_yellow.tscn" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://m8nhlqlu4a3u" path="res://Scenes/levels/level_green.tscn" id="5_272bh"]
 [ext_resource type="PackedScene" uid="uid://ebq266m7ly7q" path="res://Scenes/canvas_layer.tscn" id="5_lquwl"]
-[ext_resource type="PackedScene" uid="uid://cmakpultjn4fd" path="res://Scenes/levels/level_pink.tscn" id="6_5vw27"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h2yge"]
 
@@ -155,7 +153,7 @@ animations = [{
 [node name="Main" type="Node3D"]
 
 [node name="Player" type="CharacterBody3D" parent="." groups=["Player"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.253762, 1.22856, 27.2588)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.253762, 0, 23.8713)
 collision_mask = 25
 script = ExtResource("1_ig7tw")
 
@@ -179,12 +177,12 @@ mesh = SubResource("CapsuleMesh_0xm2m")
 skeleton = NodePath("../..")
 
 [node name="Camera3D" type="Camera3D" parent="Player" groups=["cameras"]]
-transform = Transform3D(0.0434755, 0.106401, 0.993372, 0.00190904, 0.994302, -0.106584, -0.999053, 0.00653018, 0.0430246, 15.0865, -0.923731, -2.75222)
+transform = Transform3D(0.0434755, 0.106401, 0.993372, 0.00190904, 0.994302, -0.106584, -0.999053, 0.00653018, 0.0430246, 11.3339, 0.570658, -2.75222)
+visible = false
 current = true
 
 [node name="Camera3D2" type="Camera3D" parent="Player" groups=["cameras"]]
 transform = Transform3D(0.990147, -0.017919, 0.138883, -0.0185237, 0.966304, 0.256738, -0.138803, -0.25678, 0.956451, 0.236586, 3.36137, 3.1861)
-visible = false
 
 [node name="Level_Black" parent="." instance=ExtResource("2_0xm2m")]
 
@@ -192,10 +190,11 @@ visible = false
 transform = Transform3D(1.31918, 0, 0, 0, 1.03521, 0, 0, 0, 1.02545, 1.3024, -4.50842, -33.2496)
 visible = false
 
-[node name="Level_Green" parent="." instance=ExtResource("5_272bh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1239, 0)
+[node name="Level_Green" type="Node3D" parent="."]
+visible = false
 
-[node name="Level_Pink" parent="." instance=ExtResource("6_5vw27")]
+[node name="Level_Pink" type="Node3D" parent="."]
+visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 light_energy = 2.555
