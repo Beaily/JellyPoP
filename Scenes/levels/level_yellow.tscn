@@ -24,7 +24,7 @@ albedo_color = Color(1, 1, 0.243137, 1)
 material = SubResource("StandardMaterial3D_mkwgf")
 
 [node name="Level_Yellow" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.493895, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.04192, -14.9212, 0)
 
 [node name="zhuzi" type="StaticBody3D" parent="."]
 transform = Transform3D(11.5132, 0, 0, 0, 35.8883, 0, 0, 0, 7.705, -1.82322, 3.55736, -1.75743)

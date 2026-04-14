@@ -71,17 +71,16 @@ func _ready():
 
 	for key in levels.keys():
 		var lvl = levels[key]
-		if lvl == null:
-			push_error("Level missing: " + key)
-			continue
+		if lvl == null: continue
 
 		if key == "black":
 			lvl.visible = true
 			lvl.process_mode = Node.PROCESS_MODE_ALWAYS
+			lvl.global_position = Vector3.ZERO # 在原位
 		else:
 			lvl.visible = false
 			lvl.process_mode = Node.PROCESS_MODE_DISABLED
-
+			lvl.global_position = Vector3(0, -1000, 0) # 扔到地底下 1000 米
 	current_level = "black"
 	switch_camera("black")
 
@@ -166,11 +165,11 @@ func play_anim(anim_name):
 func collect_token(value, color):
 	if color == "yellow":
 		token_yellow += value
-		if token_yellow >= 10 and not level_yellow_triggered:
+		if token_yellow >= 3 and not level_yellow_triggered:
 			trigger_level_swap("yellow")
 	elif color == "green":
 		token_green += value
-		if token_green >= 1 and not level_green_triggered:
+		if token_green >= 3 and not level_green_triggered:
 			trigger_level_swap("green")
 	elif color == "pink":
 		token_pink += value
@@ -192,20 +191,28 @@ func trigger_level_swap(color):
 	if current_level == "black":
 		saved_black_position = global_position
 
-	global_position = start_position
+	
 
 	# 关卡显示状态切换
 	for lvl in levels.values():
 		if lvl:
 			lvl.visible = false
 			lvl.process_mode = Node.PROCESS_MODE_DISABLED
+			lvl.global_position = Vector3(0, -1000, 0) # 藏起旧的
 
 	var target = levels.get(color)
 	if target:
 		target.visible = true
 		target.process_mode = Node.PROCESS_MODE_ALWAYS
+		target.global_position = Vector3.ZERO # 👈 让黄关地板先回到原位
 
-	current_level = color
+	# 2. ⭐【最重要的一行】等待物理帧刷新
+	# 这会让程序停一下，等物理引擎确认地板已经在那了，再执行后面的代码
+	await get_tree().physics_frame 
+
+	# 3. 最后再移动玩家
+	# 即使高度重合，也建议给玩家一个 0.5 到 1.0 的额外高度，防止脚陷进地里
+	global_position = start_position + Vector3(1, 8.0, 0)
 
 	# --- 变身与数值处理 ---
 	var tween = create_tween()
@@ -247,6 +254,7 @@ func return_to_black():
 	if black:
 		black.visible = true
 		black.process_mode = Node.PROCESS_MODE_ALWAYS
+		black.global_position = Vector3.ZERO
 
 	current_level = "black"
 	
