@@ -165,11 +165,11 @@ func play_anim(anim_name):
 func collect_token(value, color):
 	if color == "yellow":
 		token_yellow += value
-		if token_yellow >= 3 and not level_yellow_triggered:
+		if token_yellow >= 1 and not level_yellow_triggered:
 			trigger_level_swap("yellow")
 	elif color == "green":
 		token_green += value
-		if token_green >= 3 and not level_green_triggered:
+		if token_green >= 13 and not level_green_triggered:
 			trigger_level_swap("green")
 	elif color == "pink":
 		token_pink += value
@@ -183,6 +183,7 @@ func collect_token(value, color):
 func trigger_level_swap(color):
 	if color == "yellow":
 		level_yellow_triggered = true
+		
 	elif color == "green":
 		level_green_triggered = true
 	elif color == "pink":
@@ -212,18 +213,29 @@ func trigger_level_swap(color):
 
 	# 3. 最后再移动玩家
 	# 即使高度重合，也建议给玩家一个 0.5 到 1.0 的额外高度，防止脚陷进地里
-	global_position = start_position + Vector3(1, 8.0, 0)
+	if color == "yellow":
+		global_position = start_position + Vector3(0.2,12.0,40)
+	else:
+		global_position = start_position + Vector3(1, 8.0, 0)
+			
+	
 
 	# --- 变身与数值处理 ---
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	
 	if color == "green":
+	
 		# 巨人模式：6倍大，速度和跳跃必须大幅提升才有快感
 		tween.tween_property(self, "scale", Vector3(6, 6, 6), 0.5)
 		forward_speed = 45.0  
 		jump_force = 25.0
-		gravity = 50.0     
+		gravity = 50.0 
+	elif color == "yellow":
+		tween.tween_property(self, "scale", DEFAULT_SCALE, 0.5)
+		forward_speed = DEFAULT_SPEED
+		jump_force = DEFAULT_JUMP
+		gravity = DEFAULT_GRAVITY    
 	else:
 		# 还原回初始标准参数
 		tween.tween_property(self, "scale", DEFAULT_SCALE, 0.5)

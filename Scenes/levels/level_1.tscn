@@ -258,6 +258,7 @@ mesh = SubResource("SphereMesh_yffda")
 transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.742371, 1.85469, -24.8696)
 collision_layer = 2
 script = ExtResource("1_mkwgf")
+value = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="yToken3"]
 transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
