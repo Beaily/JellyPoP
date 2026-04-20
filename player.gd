@@ -39,7 +39,10 @@ var max_steer = 1.0
 var token_yellow = 0
 var token_green = 0
 var token_pink = 0
-
+#========
+#动画
+#========
+var was_in_air = false
 # =========================
 # 节点引用
 # =========================
@@ -110,25 +113,73 @@ func switch_camera(mode):
 # 主逻辑
 # =========================
 func _physics_process(delta):
-	if not is_on_floor():
+	# --- A. 落地瞬间检测 (必须放在最前面) ---
+	if is_on_floor():
+		if was_in_air:
+			on_player_landed() # 执行落地逻辑
+			was_in_air = false # 落地后重置标记
+		falling_timer = 0.0
+	else:
+		# 只要不在地面，就标记为“在空中”
+		was_in_air = true
 		velocity.y -= gravity * delta
 		falling_timer += delta
 		if falling_timer >= 3.0:
-			game_over_by_falling() # 调用失败函数
-	else:
-		# 只要脚沾地，计时器就归零
-		falling_timer = 0.0
+			game_over_by_falling()
 
+	# --- B. 基础移动 ---
 	velocity.z = -forward_speed
 	velocity.x = steer_input * steer_speed
 
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and is_on_floor():
-		velocity.y = jump_force
+	# --- C. 动画切换 ---
+	if is_on_floor():
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			play_anim("squat")
+		else:
+			update_sprite()
+	else:
+		play_anim("jump")
 
-	move_and_slide()
-	update_sprite()
+	move_and_slide() 
+	
 	steer_input = lerp(steer_input, 0.0, 4 * delta)
 
+func on_player_landed():
+	var tween = create_tween()
+	tween.tween_property(sprite, "scale", Vector3(1.2, 0.8, 1.2), 0.05)
+	tween.tween_property(sprite, "scale", Vector3(1.0, 1.0, 1.0), 0.1)
+
+	# 2. 根据关卡区分相机抖动
+	if current_level == "green":
+		apply_camera_shake(0.8) 
+	elif current_level == "yellow":
+		apply_camera_shake(0.02)
+	else:
+		apply_camera_shake(0.0) 
+
+   
+		
+# =========================
+# 特效辅助函数：屏幕抖动
+# =========================
+func apply_camera_shake(intensity: float):
+	# 获取当前活动相机
+	var cam = get_viewport().get_camera_3d()
+	if not cam: return
+
+	# 停止该相机上可能存在的其他 Tween，防止冲突
+	var shake_tween = create_tween()
+	
+	# 记录相机初始位置
+	var original_pos = cam.position
+	
+	# 暴力抖动方案：上下快速跳动
+	# 1. 向上弹起
+	shake_tween.tween_property(cam, "position", original_pos + Vector3(0, intensity, 0), 0.05)
+	# 2. 向下砸
+	shake_tween.tween_property(cam, "position", original_pos + Vector3(0, -intensity, 0), 0.05)
+	# 3. 回到原位
+	shake_tween.tween_property(cam, "position", original_pos, 0.05)
 # =========================
 # 输入
 # =========================
@@ -139,21 +190,36 @@ func _input(event):
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			steer_input += 0.4
 	steer_input = clamp(steer_input, -max_steer, max_steer)
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			steer_input -= 0.4
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			steer_input += 0.4
+			
+		# 新增：检测左键松开
+		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			if is_on_floor():
+				velocity.y = jump_force
+				play_anim("jump") # 松开瞬间变跳跃
 
 # =========================
 # 动画
 # =========================
 func update_sprite():
+	# 如果在空中，保持跳跃动画
 	if not is_on_floor():
-		play_anim("jump")
-		return
+		return # 不在这里处理，由跳跃触发逻辑处理
 
+	# 如果回到地面，自动切换回跑步逻辑
 	var anim = "front_run"
 	if steer_input < -0.3:
 		anim = "left_run"
 	elif steer_input > 0.3:
 		anim = "right_run"
-	play_anim(anim)
+	
+	# 只要在地面且没有按住鼠标蹲下，就播跑步动画
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		play_anim(anim)
 
 func play_anim(anim_name):
 	if sprite.animation != anim_name:
@@ -169,7 +235,7 @@ func collect_token(value, color):
 			trigger_level_swap("yellow")
 	elif color == "green":
 		token_green += value
-		if token_green >= 13 and not level_green_triggered:
+		if token_green >= 2 and not level_green_triggered:
 			trigger_level_swap("green")
 	elif color == "pink":
 		token_pink += value
@@ -181,6 +247,7 @@ func collect_token(value, color):
 # 切换关卡逻辑
 # =========================
 func trigger_level_swap(color):
+	current_level = color
 	if color == "yellow":
 		level_yellow_triggered = true
 		
@@ -234,8 +301,8 @@ func trigger_level_swap(color):
 	elif color == "yellow":
 		tween.tween_property(self, "scale", DEFAULT_SCALE, 0.5)
 		forward_speed = DEFAULT_SPEED
-		jump_force = DEFAULT_JUMP
-		gravity = DEFAULT_GRAVITY    
+		jump_force = 15
+		gravity = 25.0 
 	else:
 		# 还原回初始标准参数
 		tween.tween_property(self, "scale", DEFAULT_SCALE, 0.5)

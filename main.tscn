@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://vs0og8syt7w5"]
+[gd_scene load_steps=20 format=3 uid="uid://vs0og8syt7w5"]
 
 [ext_resource type="Script" uid="uid://dingslcua1c36" path="res://player.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://84la06qge146" path="res://Scenes/levels/level_1.tscn" id="2_0xm2m"]
@@ -14,14 +14,6 @@
 atlas = ExtResource("2_1bvp3")
 region = Rect2(0, 144, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lquwl"]
-atlas = ExtResource("2_1bvp3")
-region = Rect2(48, 144, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7mycd"]
-atlas = ExtResource("2_1bvp3")
-region = Rect2(96, 144, 48, 48)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_272bh"]
 atlas = ExtResource("2_1bvp3")
 region = Rect2(144, 144, 48, 48)
@@ -32,27 +24,11 @@ region = Rect2(0, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kek77"]
 atlas = ExtResource("2_1bvp3")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4c57u"]
-atlas = ExtResource("2_1bvp3")
 region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_efxa6"]
-atlas = ExtResource("2_1bvp3")
-region = Rect2(144, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dg77c"]
 atlas = ExtResource("2_1bvp3")
 region = Rect2(0, 48, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ycdy4"]
-atlas = ExtResource("2_1bvp3")
-region = Rect2(48, 48, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w48qg"]
-atlas = ExtResource("2_1bvp3")
-region = Rect2(96, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vivmo"]
 atlas = ExtResource("2_1bvp3")
@@ -62,29 +38,19 @@ region = Rect2(144, 48, 48, 48)
 atlas = ExtResource("2_1bvp3")
 region = Rect2(0, 96, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yaehf"]
-atlas = ExtResource("2_1bvp3")
-region = Rect2(48, 96, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_074og"]
-atlas = ExtResource("2_1bvp3")
-region = Rect2(96, 96, 48, 48)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_cegan"]
 atlas = ExtResource("2_1bvp3")
 region = Rect2(144, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4c57u"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_82xsv"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1bvp3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lquwl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7mycd")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_272bh")
@@ -104,12 +70,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kek77")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4c57u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_efxa6")
 }],
 "loop": true,
 "name": &"jump",
@@ -118,12 +78,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dg77c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ycdy4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w48qg")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vivmo")
@@ -137,16 +91,18 @@ animations = [{
 "texture": SubResource("AtlasTexture_2cqfq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yaehf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_074og")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_cegan")
 }],
 "loop": true,
 "name": &"right_run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4c57u")
+}],
+"loop": true,
+"name": &"squat",
 "speed": 5.0
 }]
 
@@ -171,7 +127,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04461, 0)
 pixel_size = 0.07
 billboard = 2
 sprite_frames = SubResource("SpriteFrames_82xsv")
-animation = &"front_run"
+animation = &"squat"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player/Visual"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.41972, 0)
@@ -180,18 +136,19 @@ mesh = SubResource("CapsuleMesh_0xm2m")
 skeleton = NodePath("../..")
 
 [node name="Camera3D3" type="Camera3D" parent="Player" groups=["cameras"]]
-transform = Transform3D(-0.00138286, 0.0766361, 0.997058, -0.00839356, 0.997023, -0.076645, -0.999964, -0.00847485, -0.000735492, 19.6152, -0.0531793, 12.4192)
-visible = false
+transform = Transform3D(-4.36052e-08, -0.0696694, 0.99757, -3.04535e-09, 0.99757, 0.0696694, -1, -2.22045e-16, -4.37114e-08, 26.8809, 3.98977, 6.91322)
 current = true
 
 [node name="Camera3D" type="Camera3D" parent="Player" groups=["cameras"]]
 transform = Transform3D(0.00436322, -0.499981, 0.866025, -0.0075574, 0.865992, 0.5, -0.999962, -0.00872651, -3.77171e-08, 30.1049, 17.9977, -3.03633)
+visible = false
 projection = 1
 current = true
 size = 20.0
 
 [node name="Camera3D2" type="Camera3D" parent="Player" groups=["cameras"]]
 transform = Transform3D(0.868174, -0.242433, 0.433013, -0.0075574, 0.865992, 0.5, -0.496202, -0.437359, 0.75, 17.5209, 12.999, 18.6546)
+visible = false
 projection = 1
 current = true
 size = 20.0
@@ -201,10 +158,10 @@ visible = false
 
 [node name="Level_Yellow" parent="." instance=ExtResource("3_h2yge")]
 transform = Transform3D(1.52309, 0, 0, 0, 1.03521, 0, 0, 0, 1.02545, -0.81272, -18.2073, -42.2102)
+visible = false
 
 [node name="Level_Green" parent="." instance=ExtResource("5_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.5456, 0)
-visible = false
 
 [node name="Level_Pink" parent="." instance=ExtResource("6_5vw27")]
 
