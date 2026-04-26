@@ -1,4 +1,699 @@
-[gd_scene format=3 uid="uid://cmakpultjn4fd"]
+[gd_scene load_steps=15 format=4 uid="uid://cmakpultjn4fd"]
+
+[ext_resource type="Script" uid="uid://nqq5nuta6b4i" path="res://Scenes/levels/csg_polygon_3d.gd" id="1_lf4kq"]
+[ext_resource type="Script" uid="uid://k8h7ayo38hbm" path="res://Scenes/levels/token.gd" id="2_akbmh"]
+[ext_resource type="Script" uid="uid://d0daiyetuja7d" path="res://Scenes/levels/return_trigger.gd" id="3_in32m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lb21i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lf4kq"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lb21i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xqfsv"]
+size = Vector3(0.170898, 0.380833, 0.17041)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_xqfsv"]
+_surfaces = [{
+"aabb": AABB(-23.6907, -1.63282, -70.2012, 19.4214, 2.73278, 65.3464),
+"attribute_data": PackedByteArray("AAAAAAAAAADPZVBCAAAAAM9lUEIAAAA+AAAAAAAAAD8AAAA/AAAAPwAAAD8AAIA/AAAAAAAAAD7PZVBCAAAAPs9lUEIAAIA+z2VQQgAAAD6JjehCAAAAPomN6EIAAIA+z2VQQgAAAACJjehCAAAAAImN6EIAAAA+NtkxQwAAAD6JjehCAAAAPomN6EIAAAAAiY3oQgAAAD422TFDAAAAPjbZMUMAAIA+z2VQQgAAgD4AAAAAAACAPgAAAAAAAAA+iY3oQgAAgD7PZVBCAACAPs9lUEIAAAA+NtkxQwAAgD6JjehCAACAPomN6EIAAAA+z2VQQgAAgD6JjehCAACAPomN6EIAAMA+NtkxQwAAwD6JjehCAADAPomN6EIAAIA+iY3oQgAAgD422TFDAACAPjbZMUMAAMA+z2VQQgAAAD4AAAAAAAAAPgAAAAAAAAAAAACAPwAAAD8AAIA/AACAPwAAAD8AAIA/iY3oQgAAAD7PZVBCAAAAPs9lUEIAAAAAz2VQQgAAAD8AAAAAAAAAPwAAAAAAAMA+AAAAAAAAwD7PZVBCAADAPs9lUEIAAAA/iY3oQgAAAD/PZVBCAAAAP89lUEIAAMA+iY3oQgAAAAA22TFDAAAAADbZMUMAAAA+NtkxQwAAAD+JjehCAAAAP4mN6EIAAMA+AAAAPwAAgD8AAAA/AAAAPwAAgD8AAAA/AAAAPwAAgD8AAAAAAACAPwAAAAAAAAA/AAAAAAAAgD7PZVBCAACAPs9lUEIAAMA+z2VQQgAAwD4AAAAAAADAPgAAAAAAAIA+iY3oQgAAwD7PZVBCAADAPs9lUEIAAIA+z2VQQgAAwD6JjehCAADAPomN6EIAAAA/iY3oQgAAwD422TFDAADAPjbZMUMAAAA/"),
+"format": 34359738391,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 84,
+"vertex_data": PackedByteArray("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")
+}]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_akbmh"]
+data = PackedVector3Array(-17.9389, 1.0007, -4.8548, -23.6852, 1.1, -25.8767, -14.7499, 1.0915, -24.7992, -17.9389, 1.0007, -4.8548, -9.3042, 1.0007, -7.3928, -9.3069, -0.9993, -7.402, -9.3042, 1.0007, -7.3928, -14.7499, 1.0915, -24.7992, -14.7554, -0.9083, -24.7694, -14.7499, 1.0915, -24.7992, -4.2692, 0.3672, -47.2062, -4.2756, -1.6328, -47.2011, -23.6852, 1.1, -25.8767, -13.2673, 0.3956, -47.3902, -4.2692, 0.3672, -47.2062, -14.5246, 1.0367, -70.1457, -4.2692, 0.3672, -47.2062, -13.2673, 0.3956, -47.3902, -4.2692, 0.3672, -47.2062, -14.5246, 1.0367, -70.1457, -14.5318, -0.9625, -70.2012, -14.7554, -0.9083, -24.7694, -9.3069, -0.9993, -7.402, -9.3042, 1.0007, -7.3928, -4.2756, -1.6328, -47.2011, -14.7554, -0.9083, -24.7694, -14.7499, 1.0915, -24.7992, -14.5318, -0.9625, -70.2012, -4.2756, -1.6328, -47.2011, -4.2692, 0.3672, -47.2062, -14.7554, -0.9083, -24.7694, -4.2756, -1.6328, -47.2011, -13.2737, -1.6044, -47.3851, -22.6891, -1.0387, -66.3996, -13.2737, -1.6044, -47.3851, -4.2756, -1.6328, -47.2011, -4.2756, -1.6328, -47.2011, -14.5318, -0.9625, -70.2012, -22.6891, -1.0387, -66.3996, -14.7499, 1.0915, -24.7992, -9.3042, 1.0007, -7.3928, -17.9389, 1.0007, -4.8548, -22.6819, 0.9605, -66.3441, -22.6891, -1.0387, -66.3996, -14.5318, -0.9625, -70.2012, -4.2692, 0.3672, -47.2062, -14.7499, 1.0915, -24.7992, -23.6852, 1.1, -25.8767, -23.6852, 1.1, -25.8767, -17.9389, 1.0007, -4.8548, -17.9416, -0.9993, -4.8639, -17.9416, -0.9993, -4.8639, -23.6907, -0.8998, -25.8469, -23.6852, 1.1, -25.8767, -13.2673, 0.3956, -47.3902, -23.6852, 1.1, -25.8767, -23.6907, -0.8998, -25.8469, -13.2673, 0.3956, -47.3902, -22.6819, 0.9605, -66.3441, -14.5246, 1.0367, -70.1457, -22.6819, 0.9605, -66.3441, -13.2673, 0.3956, -47.3902, -13.2737, -1.6044, -47.3851, -14.5318, -0.9625, -70.2012, -14.5246, 1.0367, -70.1457, -22.6819, 0.9605, -66.3441, -9.3069, -0.9993, -7.402, -17.9416, -0.9993, -4.8639, -17.9389, 1.0007, -4.8548, -9.3069, -0.9993, -7.402, -14.7554, -0.9083, -24.7694, -23.6907, -0.8998, -25.8469, -23.6907, -0.8998, -25.8469, -17.9416, -0.9993, -4.8639, -9.3069, -0.9993, -7.402, -13.2737, -1.6044, -47.3851, -23.6907, -0.8998, -25.8469, -14.7554, -0.9083, -24.7694, -23.6907, -0.8998, -25.8469, -13.2737, -1.6044, -47.3851, -13.2673, 0.3956, -47.3902, -13.2737, -1.6044, -47.3851, -22.6891, -1.0387, -66.3996, -22.6819, 0.9605, -66.3441)
+
+[sub_resource type="Curve3D" id="Curve3D_lb21i"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -13.1432, 0.000732422, -6.26936, 0, 0, 0, 0, 0, 0, -18.7253, 0.095459, -25.2603, 0, 0, 0, 0, 0, 0, -8.2711, -0.620239, -47.2864, 0, 0, 0, 0, 0, 0, -18.1537, 0.00322723, -68.4838),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gfyvs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lml3"]
+vertex_color_is_srgb = true
+albedo_color = Color(0.917647, 0.239216, 0.921569, 0.478431)
+
+[sub_resource type="SphereMesh" id="SphereMesh_yiw43"]
+material = SubResource("StandardMaterial3D_0lml3")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xyrib"]
 
 [node name="Level_Pink" type="Node3D"]
-visible = false
+transform = Transform3D(1.32525, 0, 0, 0, 1, 0, 0, 0, 1.04833, 0.972065, 0, 8.20266)
+
+[node name="Platform1" type="StaticBody3D" parent="."]
+transform = Transform3D(12.7383, 0, 0, 0, 0.40644, -0.0601799, 0, 0.00100022, 24.4543, -9.64234, 2.93316, 3.19185)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform1"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform1"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform2" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.405957, -0.0345659, 0, 0.000999028, 14.046, -1.55368, 5.16041, 1.35764)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform2"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform2"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform16" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.405957, -0.0345659, 0, 0.000999028, 14.046, -20.1331, 10.2828, -50.8029)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform16"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform16"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform17" type="StaticBody3D" parent="."]
+transform = Transform3D(2.81678, -0.000330637, -4.64865, 1.1187e-11, 0.405957, -0.0345659, 0.987914, 0.000942728, 13.2544, -5.82208, 9.35239, -28.6426)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform17"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform17"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform3" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 7.55458, 1.28713)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform3"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform3"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform4" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 9.38879, -5.7391)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform4"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform4"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform5" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 9.25777, -19.6752)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform5"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform5"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform8" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 11.1289, -27.7834)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform8"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform8"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform9" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.405318, -0.0324924, 0, 0.000997456, 13.2034, -1.55368, 13.4158, -34.6442)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform9"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform9"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform11" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.405823, -0.0489399, 0, 0.000998699, 19.8869, -1.55368, 17.3757, -52.7755)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform11"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform11"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform14" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.405823, -0.0489399, 0, 0.000998699, 19.8869, -1.55368, 19.5841, -67.4837)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform14"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform14"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform15" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.405243, -0.0205326, 0, 0.000997272, 8.3435, -1.55368, 23.2858, -63.5247)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform15"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform15"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform6" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.71416, 3.22827, -12.5418)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform6"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform6"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform7" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 2.62005, -28.4153)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform7"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform7"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform10" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 7.19393, -47.5424)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform10"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform10"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform12" type="StaticBody3D" parent="."]
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 10.5881, -55.745)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform12"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform12"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="Platform13" type="StaticBody3D" parent="."]
+transform = Transform3D(24.1536, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -15.4102, 9.69041, -79.9828)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform13"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
+layers = 4
+mesh = SubResource("BoxMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform13"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.256788, -8.63629, 0.361385)
+shape = SubResource("BoxShape3D_lf4kq")
+
+[node name="zhuzi4" type="StaticBody3D" parent="."]
+transform = Transform3D(13.4728, 0, 0, 0, 21.7769, 0, 0, 0, 7.705, -0.947918, -3.65061, -32.5111)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="zhuzi4"]
+transform = Transform3D(0.195, 0, 0, 0, 0.195, 0, 0, 0, 0.195, 0.0437122, 0.0332736, 0.0244274)
+mesh = SubResource("CylinderMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="zhuzi4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0737305, 0.0367184, 0.0129395)
+shape = SubResource("BoxShape3D_xqfsv")
+
+[node name="zhuzi5" type="StaticBody3D" parent="."]
+transform = Transform3D(13.4728, 0, 0, 0, 44.5133, 0, 0, 0, 15.6793, -0.947918, -6.82344, -36.1356)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="zhuzi5"]
+transform = Transform3D(0.195, 0, 0, 0, 0.195, 0, 0, 0, 0.195, 0.0437122, 0.0332736, 0.0244274)
+mesh = SubResource("CylinderMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="zhuzi5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.05452, 0.0737305, 0.0367184, 0.0129395)
+shape = SubResource("BoxShape3D_xqfsv")
+
+[node name="zhuzi6" type="StaticBody3D" parent="."]
+transform = Transform3D(13.4728, 0, 0, 0, 10.2214, 0, 0, 0, 7.96971, -0.947918, 11.2642, -31.9775)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="zhuzi6"]
+transform = Transform3D(0.195, 0, 0, 0, 0.195, 0, 0, 0, 0.195, 0.0437122, 0.0332736, 0.0244274)
+mesh = SubResource("CylinderMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="zhuzi6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0737305, 0.0367184, 0.0129395)
+shape = SubResource("BoxShape3D_xqfsv")
+
+[node name="zhuzi7" type="StaticBody3D" parent="."]
+transform = Transform3D(13.4728, 0, 0, 0, 44.5133, 0, 0, 0, 7.96971, -0.947918, -0.317884, -59.8951)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="zhuzi7"]
+transform = Transform3D(0.195, 0, 0, 0, 0.195, 0, 0, 0, 0.195, 0.0437122, 0.0332736, 0.0244274)
+mesh = SubResource("CylinderMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="zhuzi7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0737305, 0.0367184, 0.0129395)
+shape = SubResource("BoxShape3D_xqfsv")
+
+[node name="zhuzi8" type="StaticBody3D" parent="."]
+transform = Transform3D(13.4728, 0, 0, 0, 44.5133, 0, 0, 0, 13.0062, -0.947918, -4.56064, -65.1369)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="zhuzi8"]
+transform = Transform3D(0.195, 0, 0, 0, 0.195, 0, 0, 0, 0.195, 0.0437122, 0.0332736, 0.0244274)
+mesh = SubResource("CylinderMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="zhuzi8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0737305, 0.0367184, 0.0129395)
+shape = SubResource("BoxShape3D_xqfsv")
+
+[node name="zhuzi9" type="StaticBody3D" parent="."]
+transform = Transform3D(13.4728, 0, 0, 0, 44.5133, 0, 0, 0, 7.96971, -0.947918, -3.66294, -68.9092)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="zhuzi9"]
+transform = Transform3D(0.195, 0, 0, 0, 0.195, 0, 0, 0, 0.195, 0.0437122, 0.0332736, 0.0244274)
+mesh = SubResource("CylinderMesh_lb21i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="zhuzi9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0737305, 0.0367184, 0.0129395)
+shape = SubResource("BoxShape3D_xqfsv")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.04484, -0.0788179, 0, 0.0671459, 1.22647, 0.729983, 1.56309, 0)
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Node3D"]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.765699, 2.16064, 10.6498)
+collision_layer = 5
+collision_mask = 5
+polygon = PackedVector2Array(-5, 1, 4, 1, 4, -1, -5, -1)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 0.03
+path_simplify_angle = 9.2
+path_rotation = 2
+path_rotation_accurate = false
+path_local = true
+path_continuous_u = true
+path_u_distance = 0.38
+path_joined = false
+script = ExtResource("1_lf4kq")
+
+[node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.765699, 2.16064, 10.6498)
+mesh = SubResource("ArrayMesh_xqfsv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.765699, 2.16064, 10.6498)
+shape = SubResource("ConcavePolygonShape3D_akbmh")
+
+[node name="Path3D" type="Path3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.95511, 0, 0, 0, 0.81367, -2.91158, 0, 0)
+curve = SubResource("Curve3D_lb21i")
+
+[node name="pToken1" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.0544379, 5.8087, 6.80119)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken1"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken1"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken11" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -14.4916, 6.50307, -5.63877)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken11"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken11"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken12" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -18.7292, 7.50948, -13.0588)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken12"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken12"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken13" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -17.5199, 8.27617, -21.7341)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken13"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken13"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken15" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -6.47663, 8.27617, -23.0249)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken15"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken15"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken16" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -5.12312, 8.27617, -26.7752)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken16"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken16"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken17" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -19.1875, 9.21963, -41.7417)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken17"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken17"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken18" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -19.1875, 9.21963, -46.544)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken18"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken18"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken19" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -5.22769, 9.21963, -43.4858)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken19"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken19"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken20" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -12.5281, 9.21963, -58.3571)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken20"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken20"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken21" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -14.7932, 9.21963, -68.7366)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken21"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken21"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken14" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -7.72092, 8.50238, -37.3702)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken14"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken14"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken2" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.0544379, 0.713482, -25.0006)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken2"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken2"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken3" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.0544379, 6.5214, -43.7791)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken3"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken3"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken4" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.0544379, 9.9058, -63.8474)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken4"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken4"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken5" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.0544379, 16.1047, -41.2038)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken5"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken5"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken10" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.0544379, 14.5183, -31.3984)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken10"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken10"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken6" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.0544379, 16.1047, -46.0604)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken6"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken6"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken7" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.0544379, 22.6102, -60.9001)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken7"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken7"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken8" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.0544379, 15.2909, -70.9093)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken8"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken8"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="pToken9" type="Area3D" parent="."]
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -0.0544379, 11.6262, -73.4217)
+collision_layer = 2
+script = ExtResource("2_akbmh")
+value = 3
+color = "pink"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pToken9"]
+transform = Transform3D(3.595, 0, 0, 0, 3.595, 0, 0, 0, 3.595, 0, 0, 0)
+shape = SubResource("SphereShape3D_gfyvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pToken9"]
+transform = Transform3D(1.885, 0, 0, 0, 1.885, 0, 0, 0, 1.885, 0, 0, 0)
+layers = 16
+mesh = SubResource("SphereMesh_yiw43")
+
+[node name="ReturnTrigger" type="Area3D" parent="."]
+transform = Transform3D(73.401, 0, 0, 0, 8.7465, 0, 0, 0, 8.7465, -2.87999, -24.0769, -82.4196)
+script = ExtResource("3_in32m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReturnTrigger"]
+transform = Transform3D(4.45738, 0.0231523, 0, -0.0483911, 2.13259, 0, 0, 0, 0.897002, -0.593773, 4.36387, -0.0868082)
+shape = SubResource("BoxShape3D_xyrib")
+
+[connection signal="body_entered" from="ReturnTrigger" to="ReturnTrigger" method="_on_body_entered"]

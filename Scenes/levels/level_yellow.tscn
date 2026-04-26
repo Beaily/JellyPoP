@@ -60,7 +60,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0737305, -0.00896194, -0.10
 shape = SubResource("BoxShape3D_tpmp1")
 
 [node name="Platform3" type="StaticBody3D" parent="."]
-transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 11.354, -17.1859)
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.43146, 10.6884, -17.0878)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Platform3"]
 transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)

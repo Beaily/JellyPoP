@@ -154,7 +154,6 @@ current = true
 size = 20.0
 
 [node name="Level_Black" parent="." instance=ExtResource("2_0xm2m")]
-visible = false
 
 [node name="Level_Yellow" parent="." instance=ExtResource("3_h2yge")]
 transform = Transform3D(1.52309, 0, 0, 0, 1.03521, 0, 0, 0, 1.02545, -0.81272, -18.2073, -42.2102)
@@ -162,8 +161,10 @@ visible = false
 
 [node name="Level_Green" parent="." instance=ExtResource("5_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.5456, 0)
+visible = false
 
 [node name="Level_Pink" parent="." instance=ExtResource("6_5vw27")]
+visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 light_energy = 2.555
