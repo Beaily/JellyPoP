@@ -179,7 +179,37 @@ func _input(event):
 				play_anim("jump")
 
 	steer_input = clamp(steer_input, -max_steer, max_steer)
+#==测试快捷键=
+func _unhandled_input(event):
+	if event is InputEventKey and event.pressed:
+		# 按 1 跳转到 Yellow Level
+		if event.keycode == KEY_1:
+			print("手动跳转到 Yellow")
+			velocity = Vector3.ZERO
+			trigger_level_swap("yellow")
+			
+		# 按 2 跳转到 Green Level
+		if event.keycode == KEY_2:
+			print("跳转到 Green")
+			velocity = Vector3.ZERO
+			trigger_level_swap("green")
+			
+		# 按 3 跳转到 Pink Level (第一次进入)
+		if event.keycode == KEY_3:
+			print("跳转到 Pink")
+			level_pink_triggered = false 
+			trigger_level_swap("pink")
+		if event.keycode == KEY_4:
+			print("跳转到 Pink2")
+			level_pink_triggered = true
+			token_pink = 20
+			trigger_level_swap("pink")
 
+		# 按 R 键立即返回 Black Level
+		if event.keycode == KEY_R:
+			print("手动返回 Black")
+			velocity = Vector3.ZERO
+			return_to_black()
 # =========================
 # 动画
 # =========================
@@ -206,11 +236,10 @@ func collect_token(value, color):
 			trigger_level_swap("yellow")
 	elif color == "green":
 		token_green += value
-		if token_green >= 1 and not level_green_triggered:
+		if token_green >= 10 and not level_green_triggered:
 			trigger_level_swap("green")
 	elif color == "pink":
 		token_pink += value
-		# 新逻辑：如果在 black 关卡 pink 分数达到 10，强制再次进入 pink 关卡
 		if current_level == "black" and token_pink >= 4:
 			trigger_level_swap("pink")
 		elif token_pink >= 1 and not level_pink_triggered:
@@ -221,6 +250,8 @@ func collect_token(value, color):
 # 切换关卡逻辑
 # =========================
 func trigger_level_swap(color):
+	print("--- 触发跳转，目标颜色是: ", color, " ---")
+	print("当前 level_pink_triggered 状态: ", level_pink_triggered)
 	# 1. 核心修复：如果是离开 black，记录当前坐标
 	if current_level == "black":
 		saved_black_position = global_position
@@ -251,9 +282,14 @@ func trigger_level_swap(color):
 	if color == "yellow":
 		global_position = start_position + Vector3(0.2, 12.0, 40)
 	elif color == "pink":
-		global_position = start_position + Vector3(0, 0.5, -10)
+		if level_pink_triggered == false:
+			# 第一次进入的位置 (level_pink_triggered 此时还没被设为 true)
+			global_position = start_position + Vector3(1, 3, 0)
+		else:
+			# 第二次及以后进入的位置 (比如传送到更高或更远的地方)
+			global_position = start_position + Vector3(-12, 4,-10)
 	else:
-		global_position = start_position + Vector3(1, 8.0, 0)
+		global_position = start_position + Vector3(-4, 4, 10)
 
 	# 变身处理
 	var tween = create_tween()
@@ -292,10 +328,14 @@ func trigger_level_swap(color):
 # 返回 black
 # =========================
 func return_to_black():
+	print("开始返回...")
 	is_transferring = true
 	falling_timer = 0.0
-	velocity = Vector3.ZERO
+	velocity = Vector3.ZERO # 必须重置速度
 	
+	# 1. 立即停止所有物理处理
+	set_physics_process(false) 
+
 	for lvl in levels.values():
 		if lvl:
 			lvl.visible = false
@@ -308,29 +348,29 @@ func return_to_black():
 		black.process_mode = Node.PROCESS_MODE_ALWAYS
 		black.global_position = Vector3.ZERO
 
-	await get_tree().physics_frame
+	# 2. 强制同步物理状态
+	await get_tree().process_frame
 
+	# 设置位置：确保 Y 轴足够高，避免卡进地板
 	if saved_black_position == Vector3.ZERO:
-		global_position = start_position + Vector3(0, 2.0, 0)
+			global_position = start_position + Vector3(0, 3.0, 0)
 	else:
-		global_position = saved_black_position + Vector3(0, 2.0, 0)
-		
+		global_position = saved_black_position + Vector3(0, 3.0, 0)
 
 	await get_tree().create_timer(0.5).timeout
-	
+
 	current_level = "black"
 	forward_speed = DEFAULT_SPEED
 	jump_force = DEFAULT_JUMP
 	gravity = DEFAULT_GRAVITY
+	set_physics_process(true)
 	
 	var tween = create_tween()
 	tween.tween_property(self, "scale", DEFAULT_SCALE, 0.4)
 
 	switch_camera("black")
 	
-	falling_timer = 0.0
 	is_transferring = false
-
 # =========================
 # UI 与 结束
 # =========================
@@ -343,6 +383,11 @@ func update_ui():
 	if token_label: token_label.text = text
 
 func reach_end_target():
+	if is_transferring:
+		print("拦截：正在传送中，无视终点线")
+		return
+
+	print("正式结束游戏！")
 	var total_score = token_yellow + token_green + token_pink
 	var ui_canvas = get_tree().get_root().get_node_or_null("Main/UI")
 	if ui_canvas and ui_canvas.has_method("show_game_over"):
@@ -353,6 +398,7 @@ func reach_end_target():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func game_over_by_falling():
+	print("游戏结束触发：掉落超时，当前计时器：", falling_timer)
 	if is_transferring or current_level == "":
 		falling_timer = 0.0
 		return

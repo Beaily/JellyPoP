@@ -74,7 +74,7 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.25678
 shape = SubResource("BoxShape3D_lf4kq")
 
 [node name="Platform16" type="StaticBody3D" parent="."]
-transform = Transform3D(2.985, 0, 0, 0, 0.405957, -0.0345659, 0, 0.000999028, 14.046, -20.1331, 10.2828, -50.8029)
+transform = Transform3D(2.7996, 0.000346598, 4.87306, 0, 0.405957, -0.0345659, -1.0356, 0.000936977, 13.1736, -19.1951, 8.6467, -56.0264)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Platform16"]
 transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
@@ -86,7 +86,7 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.25678
 shape = SubResource("BoxShape3D_lf4kq")
 
 [node name="Platform17" type="StaticBody3D" parent="."]
-transform = Transform3D(2.81678, -0.000330637, -4.64865, 1.1187e-11, 0.405957, -0.0345659, 0.987914, 0.000942728, 13.2544, -5.82208, 9.35239, -28.6426)
+transform = Transform3D(2.81678, -0.000330637, -4.64865, 1.1187e-11, 0.405957, -0.0345659, 0.987914, 0.000942728, 13.2544, -10.7125, 7.43727, -28.6426)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Platform17"]
 transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
@@ -206,7 +206,7 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.25678
 shape = SubResource("BoxShape3D_lf4kq")
 
 [node name="Platform7" type="StaticBody3D" parent="."]
-transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 2.62005, -28.4153)
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 2.62005, -26.1651)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Platform7"]
 transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
@@ -218,7 +218,7 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.25678
 shape = SubResource("BoxShape3D_lf4kq")
 
 [node name="Platform10" type="StaticBody3D" parent="."]
-transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 7.19393, -47.5424)
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 7.19393, -46.099)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Platform10"]
 transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
@@ -230,7 +230,7 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -5.82077e-11, 1, 0.25678
 shape = SubResource("BoxShape3D_lf4kq")
 
 [node name="Platform12" type="StaticBody3D" parent="."]
-transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 10.5881, -55.745)
+transform = Transform3D(2.985, 0, 0, 0, 0.404999, -0.0246091, 0, 0.00099667, 9.99997, -1.55368, 10.5881, -56.4984)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Platform12"]
 transform = Transform3D(1, 0, 0, 0, 1, -1.11759e-08, 0, -6.54836e-11, 1, 0.256788, -8.63534, 0.376941)
@@ -320,7 +320,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0737305, 0.0367184, 0.01293
 shape = SubResource("BoxShape3D_xqfsv")
 
 [node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1.04484, -0.0788179, 0, 0.0671459, 1.22647, 0.729983, 1.56309, 0)
+transform = Transform3D(1, 0, 0, 0, 1.04484, -0.0788179, 0, 0.0671459, 1.22647, 0.729983, -2.23644, 0)
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="Node3D"]
 process_mode = 3
@@ -370,7 +370,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="pToken11" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -14.4916, 6.50307, -5.63877)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -14.4916, 3.63375, -5.63877)
 collision_layer = 2
 script = ExtResource("2_akbmh")
 value = 3
@@ -386,7 +386,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="pToken12" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -18.7292, 7.50948, -13.0588)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -18.7292, 4.64016, -13.0588)
 collision_layer = 2
 script = ExtResource("2_akbmh")
 value = 3
@@ -402,7 +402,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="pToken13" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -17.5199, 8.27617, -21.7341)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -17.5199, 5.40685, -21.7341)
 collision_layer = 2
 script = ExtResource("2_akbmh")
 value = 3
@@ -418,7 +418,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="pToken15" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -6.47663, 8.27617, -23.0249)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -12.131, 5.40685, -23.0249)
 collision_layer = 2
 script = ExtResource("2_akbmh")
 value = 3
@@ -434,7 +434,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="pToken16" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -5.12312, 8.27617, -26.7752)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -10.7775, 5.40685, -26.7752)
 collision_layer = 2
 script = ExtResource("2_akbmh")
 value = 3
@@ -450,7 +450,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="pToken17" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -19.1875, 9.21963, -41.7417)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -15.02, 6.35031, -48.8205)
 collision_layer = 2
 script = ExtResource("2_akbmh")
 value = 3
@@ -466,7 +466,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="pToken18" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -19.1875, 9.21963, -46.544)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -17.0894, 6.35031, -53.6228)
 collision_layer = 2
 script = ExtResource("2_akbmh")
 value = 3
@@ -482,7 +482,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="pToken19" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -5.22769, 9.21963, -43.4858)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -5.22769, 6.35031, -43.4858)
 collision_layer = 2
 script = ExtResource("2_akbmh")
 value = 3
@@ -498,7 +498,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="pToken20" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -12.5281, 9.21963, -58.3571)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -12.5281, 6.35031, -58.3571)
 collision_layer = 2
 script = ExtResource("2_akbmh")
 value = 3
@@ -514,7 +514,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="pToken21" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -14.7932, 9.21963, -68.7366)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -14.7932, 6.35031, -68.7366)
 collision_layer = 2
 script = ExtResource("2_akbmh")
 value = 3
@@ -530,7 +530,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="pToken14" type="Area3D" parent="."]
-transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -7.72092, 8.50238, -37.3702)
+transform = Transform3D(1.275, 0, 0, 0, 1.275, 0, 0, 0, 1.275, -7.72092, 5.63306, -37.3702)
 collision_layer = 2
 script = ExtResource("2_akbmh")
 value = 3
