@@ -43,7 +43,8 @@ albedo_color = Color(0.917647, 0.239216, 0.921569, 0.478431)
 [sub_resource type="SphereMesh" id="SphereMesh_yiw43"]
 material = SubResource("StandardMaterial3D_0lml3")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xyrib"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_akbmh"]
+size = Vector3(12, 4, 3)
 
 [node name="Level_Pink" type="Node3D"]
 transform = Transform3D(1.32525, 0, 0, 0, 1, 0, 0, 0, 1.04833, 0.972065, 0, 8.20266)
@@ -689,11 +690,11 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="ReturnTrigger" type="Area3D" parent="."]
-transform = Transform3D(73.401, 0, 0, 0, 8.7465, 0, 0, 0, 8.7465, -2.87999, -24.0769, -82.4196)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.353926, 8.5507, -77.7672)
 script = ExtResource("3_in32m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ReturnTrigger"]
-transform = Transform3D(4.45738, 0.0231523, 0, -0.0483911, 2.13259, 0, 0, 0, 0.897002, -0.593773, 4.36387, -0.0868082)
-shape = SubResource("BoxShape3D_xyrib")
+transform = Transform3D(2.115, 0, 0, 0, 2.115, 0, 0, 0, 2.115, -9.10242, -1.8498, -3.79702)
+shape = SubResource("BoxShape3D_akbmh")
 
 [connection signal="body_entered" from="ReturnTrigger" to="ReturnTrigger" method="_on_body_entered"]

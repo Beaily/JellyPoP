@@ -111,7 +111,9 @@ func switch_camera(mode):
 # =========================
 func _physics_process(delta):
 	if is_transferring:
+		velocity.y = 0
 		move_and_slide()
+		falling_timer = 0.0
 		return
 	
 	if is_on_floor():
@@ -125,7 +127,7 @@ func _physics_process(delta):
 		
 		if not is_transferring:
 			falling_timer += delta
-		if falling_timer >= 4.0:
+		if falling_timer >= 6.0:
 			game_over_by_falling()
 
 	velocity.z = -forward_speed
@@ -204,7 +206,7 @@ func collect_token(value, color):
 			trigger_level_swap("yellow")
 	elif color == "green":
 		token_green += value
-		if token_green >= 20 and not level_green_triggered:
+		if token_green >= 1 and not level_green_triggered:
 			trigger_level_swap("green")
 	elif color == "pink":
 		token_pink += value
@@ -292,6 +294,7 @@ func trigger_level_swap(color):
 func return_to_black():
 	is_transferring = true
 	falling_timer = 0.0
+	velocity = Vector3.ZERO
 	
 	for lvl in levels.values():
 		if lvl:
@@ -310,10 +313,11 @@ func return_to_black():
 	if saved_black_position == Vector3.ZERO:
 		global_position = start_position + Vector3(0, 2.0, 0)
 	else:
-		global_position = saved_black_position + Vector3(0, 1.0, 0)
-		velocity = Vector3.ZERO
+		global_position = saved_black_position + Vector3(0, 2.0, 0)
+		
 
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.5).timeout
+	
 	current_level = "black"
 	forward_speed = DEFAULT_SPEED
 	jump_force = DEFAULT_JUMP
@@ -323,6 +327,8 @@ func return_to_black():
 	tween.tween_property(self, "scale", DEFAULT_SCALE, 0.4)
 
 	switch_camera("black")
+	
+	falling_timer = 0.0
 	is_transferring = false
 
 # =========================
@@ -347,7 +353,8 @@ func reach_end_target():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func game_over_by_falling():
-	if is_transferring:
+	if is_transferring or current_level == "":
+		falling_timer = 0.0
 		return
 	
 	falling_timer = 0.0
