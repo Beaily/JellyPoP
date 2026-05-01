@@ -13,8 +13,7 @@ const DEFAULT_GRAVITY = 10.0
 # =========================
 var saved_black_position = Vector3.ZERO 
 var level_yellow_triggered = false
-var level_green_triggered = false
-var level_pink_triggered = false    
+var level_green_triggered = false 
 var start_position = Vector3.ZERO   
 var falling_timer = 0.0
 var is_transferring = false 
@@ -43,7 +42,7 @@ var token_pink = 0
 # 动画/状态
 # =========================
 var was_in_air = false
-
+var pink_enter_count = 0
 # =========================
 # 节点引用
 # =========================
@@ -197,11 +196,11 @@ func _unhandled_input(event):
 		# 按 3 跳转到 Pink Level (第一次进入)
 		if event.keycode == KEY_3:
 			print("跳转到 Pink")
-			level_pink_triggered = false 
+			pink_enter_count = 0 
 			trigger_level_swap("pink")
 		if event.keycode == KEY_4:
 			print("跳转到 Pink2")
-			level_pink_triggered = true
+			pink_enter_count = 1
 			token_pink = 20
 			trigger_level_swap("pink")
 
@@ -242,7 +241,7 @@ func collect_token(value, color):
 		token_pink += value
 		if current_level == "black" and token_pink >= 4:
 			trigger_level_swap("pink")
-		elif token_pink >= 1 and not level_pink_triggered:
+		elif token_pink >= 1 and current_level != "pink":
 			trigger_level_swap("pink")
 	update_ui()
 
@@ -251,19 +250,46 @@ func collect_token(value, color):
 # =========================
 func trigger_level_swap(color):
 	print("--- 触发跳转，目标颜色是: ", color, " ---")
-	print("当前 level_pink_triggered 状态: ", level_pink_triggered)
-	# 1. 核心修复：如果是离开 black，记录当前坐标
+	
+
+	# =========================
+	# 关键修复 1：记录 pink 是否第一次
+	# =========================
+	
+	if color == "pink":
+		if pink_enter_count >= 2:
+			print("🚫 Pink 已锁定")
+			return
+		
+		pink_enter_count += 1
+
+	# =========================
+	# 记录 black 位置
+	# =========================
 	if current_level == "black":
 		saved_black_position = global_position
 		
 	current_level = color
-	falling_timer = 0.0 # 重置死亡计时
+	falling_timer = 0.0
 
-	if color == "yellow": level_yellow_triggered = true
-	elif color == "green": level_green_triggered = true
-	elif color == "pink": level_pink_triggered = true
+	# =========================
+	# 关键修复 2：冻结移动（防止位置被覆盖）
+	# =========================
+	is_transferring = true
+	velocity = Vector3.ZERO
 
-	# 关卡显示状态切换
+	# =========================
+	# 更新触发状态（放在后面）
+	# =========================
+	if color == "yellow":
+		level_yellow_triggered = true
+	elif color == "green":
+		level_green_triggered = true
+
+
+	# =========================
+	# 关卡显示切换
+	# =========================
 	for lvl in levels.values():
 		if lvl:
 			lvl.visible = false
@@ -276,22 +302,33 @@ func trigger_level_swap(color):
 		target.process_mode = Node.PROCESS_MODE_ALWAYS
 		target.global_position = Vector3.ZERO
 
-	await get_tree().physics_frame 
-
-	# 移动玩家
+	await get_tree().physics_frame
+	
 	if color == "yellow":
 		global_position = start_position + Vector3(0.2, 12.0, 40)
-	elif color == "pink":
-		if level_pink_triggered == false:
-			# 第一次进入的位置 (level_pink_triggered 此时还没被设为 true)
-			global_position = start_position + Vector3(1, 3, 0)
-		else:
-			# 第二次及以后进入的位置 (比如传送到更高或更远的地方)
-			global_position = start_position + Vector3(-12, 4,-10)
-	else:
-		global_position = start_position + Vector3(-4, 4, 10)
 
+	elif color == "pink":
+		print("Pink 次数:", pink_enter_count)
+
+		if pink_enter_count == 1:
+			print("第一次位置")
+			global_position = start_position + Vector3(-2, 10, 0)
+
+		elif pink_enter_count == 2:
+			print("第二次位置")
+			global_position = start_position + Vector3(-12, 10, -10)
+
+	else:
+		global_position = start_position + Vector3(-4, 10, 10)
+
+	# =========================
+	# 等待位置稳定
+	# =========================
+	await get_tree().process_frame
+
+	# =========================
 	# 变身处理
+	# =========================
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	
@@ -305,28 +342,43 @@ func trigger_level_swap(color):
 		forward_speed = DEFAULT_SPEED
 		jump_force = 15
 		gravity = 25.0 
+	elif color == "pink":
+		tween.tween_property(self, "scale", DEFAULT_SCALE, 0.5)
+		forward_speed = min( DEFAULT_SPEED + token_pink * 0.5,20)
+		jump_force = 18
+		gravity = 20 
+		
+		if pink_enter_count == 2:
+			steer_speed = 12
+		else :
+			steer_speed = 6
+		
 	else:
 		tween.tween_property(self, "scale", DEFAULT_SCALE, 0.5)
 		forward_speed = DEFAULT_SPEED
 		jump_force = DEFAULT_JUMP
 		gravity = DEFAULT_GRAVITY
 
-	# 相机切换逻辑：如果进入 pink 且分数 >= 10，用背后视角
+	# =========================
+	# 相机切换
+	# =========================
 	if color == "yellow":
 		switch_camera("yellow")
 	elif color == "green":
 		switch_camera("green")
 	elif color == "pink":
 		if token_pink >= 4:
-			switch_camera("yellow") # 对应 cam_back
+			switch_camera("yellow")
 		else:
-			switch_camera("black") # 默认侧面视角
+			switch_camera("black")
 	else:
 		switch_camera("black")
 
-# =========================
-# 返回 black
-# =========================
+	# =========================
+	# 解除冻结（恢复移动）
+	# =========================
+	await get_tree().create_timer(0.2).timeout
+	is_transferring = false
 func return_to_black():
 	print("开始返回...")
 	is_transferring = true
