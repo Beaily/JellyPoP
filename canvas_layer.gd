@@ -41,6 +41,33 @@ func _on_restart_button_pressed():
 	ui.get_node("Arrow").visible = false
 	ui.get_node("TokenHint").visible = false
 
-	
+func show_transition(text: String):
+
+	var panel = $TransitionPanel
+	var label = $TransitionPanel/TransitionLabel
+
+	panel.visible = true
+	label.text = text
+
+	# 初始透明
+	panel.modulate.a = 0
+
+	var tween = create_tween()
+
+	# 淡入（0 → 1）
+	tween.tween_property(panel, "modulate:a", 1.0, 0.4)
+
+	await tween.finished
+
+	# 停留时间（核心展示时间）
+	await get_tree().create_timer(2.0).timeout
+
+	# 淡出（1 → 0）
+	var tween2 = create_tween()
+	tween2.tween_property(panel, "modulate:a", 0.0, 0.4)
+
+	await tween2.finished
+
+	panel.visible = false
 	
 		

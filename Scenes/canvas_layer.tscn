@@ -124,4 +124,24 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 24
 text = "Play again"
 
+[node name="TransitionPanel" type="ColorRect" parent="."]
+visible = false
+z_index = 7
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.01403, 1.00708)
+color = Color(0.0177324, 0.0177324, 0.0177324, 1)
+
+[node name="TransitionLabel" type="Label" parent="TransitionPanel"]
+offset_left = 237.666
+offset_top = 117.171
+offset_right = 327.666
+offset_bottom = 143.171
+scale = Vector2(0.745286, 0.713453)
+theme_override_font_sizes/font_size = 30
+text = "jump level"
+
 [connection signal="pressed" from="ResultPanel/RestartButton" to="." method="_on_restart_button_pressed"]

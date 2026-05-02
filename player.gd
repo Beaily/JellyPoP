@@ -292,6 +292,24 @@ func collect_token(value, color):
 # 切换关卡逻辑
 # =========================
 func trigger_level_swap(color):
+
+	var ui = get_tree().get_root().get_node("Main/UI")
+
+	var token_count = 0
+
+	if color == "yellow":
+		token_count = token_yellow
+	elif color == "green":
+		token_count = token_green
+	elif color == "pink":
+		token_count = token_pink
+
+	is_transferring = true
+	velocity = Vector3.ZERO
+	var text = "Collected: " + str(token_count) + "\nGoing to " + color + " level"
+
+	await ui.show_transition(text)
+	
 	print("--- 触发跳转，目标颜色是: ", color, " ---")
 	
 
