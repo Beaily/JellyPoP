@@ -21,4 +21,26 @@ func show_game_over(score: int):
 # 给你的 RestartButton 连接这个信号
 
 func _on_restart_button_pressed():
-	get_tree().reload_current_scene()
+	
+	result_panel.hide()
+	
+	var player = get_tree().get_root().get_node("Main/Player")
+	
+	if player:
+		player.return_to_black()
+		
+		player.has_jumped = false
+		player.has_moved = false
+		player.move_time = 0.0
+	
+	# 手动关闭 tutorial UI（注意缩进必须在函数里面）
+	var ui = get_tree().get_root().get_node("Main/UI")
+	
+	ui.get_node("JumpLabel").visible = false
+	ui.get_node("MoveLabel").visible = false
+	ui.get_node("Arrow").visible = false
+	ui.get_node("TokenHint").visible = false
+
+	
+	
+		

@@ -690,7 +690,7 @@ layers = 16
 mesh = SubResource("SphereMesh_yiw43")
 
 [node name="ReturnTrigger" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.353926, 8.5507, -77.7672)
+transform = Transform3D(1, 0, 0, 0, 9.7334, 0, 0, 0, 1, -0.353926, 8.5507, -77.7672)
 script = ExtResource("3_in32m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ReturnTrigger"]

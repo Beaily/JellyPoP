@@ -43,6 +43,15 @@ var token_pink = 0
 # =========================
 var was_in_air = false
 var pink_enter_count = 0
+
+# =========================
+# UI
+# =========================
+var has_jumped = false
+var has_moved = false
+var has_collected = false
+var move_time = 0.0
+
 # =========================
 # 节点引用
 # =========================
@@ -62,6 +71,10 @@ var pink_enter_count = 0
 # 初始化
 # =========================
 func _ready():
+	if GameManager.tutorial_done:
+		hide_jump_ui()
+	else:
+		show_jump_ui()
 	start_position = global_position
 	levels = {
 		"black": level_black,
@@ -109,6 +122,7 @@ func switch_camera(mode):
 # 主逻辑
 # =========================
 func _physics_process(delta):
+	
 	if is_transferring:
 		velocity.y = 0
 		move_and_slide()
@@ -142,6 +156,19 @@ func _physics_process(delta):
 
 	move_and_slide() 
 	steer_input = lerp(steer_input, 0.0, 4 * delta)
+	# =========================
+	# UI 移动检测（加这里）
+	# =========================
+	if has_jumped and not has_moved:
+		
+		if abs(steer_input) > 0.1:
+			move_time += delta
+
+			if move_time > 2:
+				has_moved = true
+				hide_move_ui()
+				hide_arrow()
+				GameManager.tutorial_done = true 
 
 func on_player_landed():
 	var tween = create_tween()
@@ -167,6 +194,14 @@ func apply_camera_shake(intensity: float):
 # =========================
 func _input(event):
 	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if GameManager.tutorial_done:
+				return
+			if not has_jumped:
+				has_jumped = true
+				hide_jump_ui()
+				show_move_ui()
+				show_arrow()
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			steer_input -= 0.4
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
@@ -229,6 +264,14 @@ func play_anim(anim_name):
 # Token
 # =========================
 func collect_token(value, color):
+		
+	if not has_collected:
+		has_collected = true
+		show_token_ui()
+	var total_token = token_yellow + token_green + token_pink
+	if total_token >= 3:
+		hide_token_ui()
+	
 	if color == "yellow":
 		token_yellow += value
 		if token_yellow >= 10 and not level_yellow_triggered:
@@ -404,11 +447,12 @@ func return_to_black():
 	await get_tree().process_frame
 
 	# 设置位置：确保 Y 轴足够高，避免卡进地板
-	if saved_black_position == Vector3.ZERO:
-			global_position = start_position + Vector3(0, 3.0, 0)
-	else:
-		global_position = saved_black_position + Vector3(0, 3.0, 0)
+	#if saved_black_position == Vector3.ZERO:
+			#global_position = start_position + Vector3(0, 3.0, 0)
+	#else:
+		#global_position = saved_black_position + Vector3(0, 3.0, 0)
 
+	global_position = start_position + Vector3(0, 3.0, 0)
 	await get_tree().create_timer(0.5).timeout
 
 	current_level = "black"
@@ -457,3 +501,31 @@ func game_over_by_falling():
 	
 	falling_timer = 0.0
 	reach_end_target()
+# =========================
+# UI 控制函数（必须加）
+# =========================
+@onready var ui = get_tree().get_root().get_node("Main/UI")
+
+func show_jump_ui():
+	ui.get_node("JumpLabel").visible = true
+
+func hide_jump_ui():
+	ui.get_node("JumpLabel").visible = false
+
+func show_move_ui():
+	ui.get_node("MoveLabel").visible = true
+
+func hide_move_ui():
+	ui.get_node("MoveLabel").visible = false
+
+func show_arrow():
+	ui.get_node("Arrow").visible = true
+
+func hide_arrow():
+	ui.get_node("Arrow").visible = false
+
+func show_token_ui():
+	ui.get_node("TokenHint").visible = true
+
+func hide_token_ui():
+	ui.get_node("TokenHint").visible = false
