@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://vs0og8syt7w5"]
+[gd_scene load_steps=21 format=3 uid="uid://vs0og8syt7w5"]
 
 [ext_resource type="Script" uid="uid://dingslcua1c36" path="res://player.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://84la06qge146" path="res://Scenes/levels/level_1.tscn" id="2_0xm2m"]
@@ -108,6 +108,12 @@ animations = [{
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0xm2m"]
 
+[sub_resource type="Environment" id="Environment_272bh"]
+background_mode = 1
+background_color = Color(0.804743, 0.804743, 0.804743, 1)
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.2
+
 [node name="Main" type="Node3D"]
 
 [node name="Player" type="CharacterBody3D" parent="." groups=["Player"]]
@@ -153,6 +159,11 @@ projection = 1
 current = true
 size = 20.0
 
+[node name="OmniLight3D" type="OmniLight3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12862, 4.44749, -5.28919)
+light_energy = 2.333
+omni_range = 8.909
+
 [node name="Level_Black" parent="." instance=ExtResource("2_0xm2m")]
 
 [node name="Level_Yellow" parent="." instance=ExtResource("3_h2yge")]
@@ -167,6 +178,13 @@ visible = false
 visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-light_energy = 2.555
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0.0497675, 8.40373, 0.661686)
+light_color = Color(0.996662, 0.962333, 0.845441, 1)
+light_energy = 1.5
+shadow_enabled = true
+shadow_normal_bias = 1.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_272bh")
 
 [node name="UI" parent="." instance=ExtResource("5_lquwl")]
