@@ -110,7 +110,7 @@ animations = [{
 
 [sub_resource type="Environment" id="Environment_272bh"]
 background_mode = 1
-background_color = Color(0.804743, 0.804743, 0.804743, 1)
+background_color = Color(0.947199, 0.947199, 0.947199, 1)
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.2
 
@@ -161,7 +161,8 @@ size = 20.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12862, 4.44749, -5.28919)
-light_energy = 2.333
+light_color = Color(0.991164, 0.991164, 0.991164, 1)
+light_energy = 4.778
 omni_range = 8.909
 
 [node name="Level_Black" parent="." instance=ExtResource("2_0xm2m")]
@@ -179,8 +180,8 @@ visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0.0497675, 8.40373, 0.661686)
-light_color = Color(0.996662, 0.962333, 0.845441, 1)
-light_energy = 1.5
+light_color = Color(0.99735, 0.970244, 0.877491, 1)
+light_energy = 0.167
 shadow_enabled = true
 shadow_normal_bias = 1.0
 
