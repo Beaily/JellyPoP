@@ -147,6 +147,7 @@ shape = SubResource("CapsuleShape3D_h2yge")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04461, 0)
 pixel_size = 0.07
 billboard = 2
+no_depth_test = true
 sprite_frames = SubResource("SpriteFrames_82xsv")
 animation = &"squat"
 
@@ -176,9 +177,10 @@ size = 20.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12862, 4.44749, -5.28919)
-light_color = Color(0.991164, 0.991164, 0.991164, 1)
+light_color = Color(0.752941, 0.129412, 0, 1)
 light_energy = 4.778
 omni_range = 8.909
+omni_attenuation = -4.555
 
 [node name="Level_Black" parent="." instance=ExtResource("2_0xm2m")]
 
