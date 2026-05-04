@@ -1,9 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://vs0og8syt7w5"]
+[gd_scene load_steps=24 format=3 uid="uid://vs0og8syt7w5"]
 
 [ext_resource type="Script" uid="uid://dingslcua1c36" path="res://player.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://84la06qge146" path="res://Scenes/levels/level_1.tscn" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://dms8mne11hic3" path="res://Arts/white jelly.png" id="2_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://dxrmmtpg4lbou" path="res://audio/bgm.mp3" id="2_4c57u"]
+[ext_resource type="AudioStream" uid="uid://2agps0tcm8wg" path="res://audio/token_pickup.mp3" id="3_efxa6"]
 [ext_resource type="PackedScene" uid="uid://colkbabafegp3" path="res://Scenes/levels/level_yellow.tscn" id="3_h2yge"]
+[ext_resource type="AudioStream" uid="uid://dvtht03yki420" path="res://audio/level_switch.mp3" id="4_dg77c"]
 [ext_resource type="PackedScene" uid="uid://m8nhlqlu4a3u" path="res://Scenes/levels/level_green.tscn" id="5_272bh"]
 [ext_resource type="PackedScene" uid="uid://ebq266m7ly7q" path="res://Scenes/canvas_layer.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://cmakpultjn4fd" path="res://Scenes/levels/level_pink.tscn" id="6_5vw27"]
@@ -121,6 +124,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.253762, 1.22856, 27.2588)
 collision_mask = 25
 floor_max_angle = 1.48353
 script = ExtResource("1_ig7tw")
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("2_4c57u")
+volume_db = -14.0
+
+[node name="TokenPickupPlayer" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("3_efxa6")
+volume_db = -2.0
+
+[node name="LevelSwitchPlayer" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("4_dg77c")
+volume_db = -5.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1.36626, 0, 0.594494, 0, 1.49, 0, -0.594494, 0, 1.36626, -0.0381327, 1.08935, 0)

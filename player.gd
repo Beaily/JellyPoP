@@ -3,7 +3,7 @@ extends CharacterBody3D
 # =========================
 # 初始标准参数
 # =========================
-const DEFAULT_SPEED = 8.0
+const DEFAULT_SPEED = 7.0
 const DEFAULT_JUMP = 8.0
 const DEFAULT_SCALE = Vector3(1.0, 1.0, 1.0)
 const DEFAULT_GRAVITY = 10.0  
@@ -30,7 +30,9 @@ var jump_force = DEFAULT_JUMP
 var gravity = DEFAULT_GRAVITY
 var steer_input = 0.0
 var max_steer = 1.0
-
+# touch design
+var touch_start_x = 0.0
+var touch_sensitivity = 0.015
 # =========================
 # token
 # =========================
@@ -51,10 +53,27 @@ var has_jumped = false
 var has_moved = false
 var has_collected = false
 var move_time = 0.0
+#music
+var can_auto_forward = true
+var bgm_pitch_by_level = {
+	"yellow": 1.25,
+	"green": 0.85,
+	"black": 0.9,
+	"pink": 1.35
+}
 
+var token_pitch_by_color = {
+	"yellow": 1.2,
+	"green": 1.0,
+	"pink": 1.45
+}
 # =========================
 # 节点引用
 # =========================
+@onready var bgm_player: AudioStreamPlayer = $BGMPlayer
+@onready var token_pickup_player: AudioStreamPlayer = $TokenPickupPlayer
+@onready var level_switch_player: AudioStreamPlayer = $LevelSwitchPlayer
+
 @onready var sprite = $Visual/AnimatedSprite3D
 @onready var token_label = get_tree().get_root().get_node("Main/UI/TokenLabel")
 
@@ -76,6 +95,7 @@ func _ready():
 	else:
 		show_jump_ui()
 	start_position = global_position
+	update_bgm_for_level("black")
 	levels = {
 		"black": level_black,
 		"yellow": level_yellow,
@@ -143,8 +163,15 @@ func _physics_process(delta):
 		if falling_timer >= 6.0:
 			game_over_by_falling()
 
-	velocity.z = -forward_speed
-	velocity.x = steer_input * steer_speed
+	if can_auto_forward:
+		velocity.z = -forward_speed
+	else:
+		velocity.z = 0
+	if current_level == "green":
+		velocity.x = 0
+		steer_input = 0.0
+	else:
+		velocity.x = steer_input * steer_speed
 
 	if is_on_floor():
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -193,6 +220,23 @@ func apply_camera_shake(intensity: float):
 # 输入
 # =========================
 func _input(event):
+	
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			touch_start_x = event.position.x
+		else:
+			if is_on_floor():
+				velocity.y = jump_force
+				play_anim("jump")
+
+	if event is InputEventScreenDrag:
+		if current_level != "green":
+			var drag_distance = event.position.x - touch_start_x
+			steer_input = drag_distance * touch_sensitivity
+			steer_input = clamp(steer_input, -max_steer, max_steer)
+		else:
+			steer_input = 0.0
+	
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if GameManager.tutorial_done:
@@ -202,10 +246,13 @@ func _input(event):
 				hide_jump_ui()
 				show_move_ui()
 				show_arrow()
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			steer_input -= 0.4
-		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			steer_input += 0.4
+		if current_level != "green":
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				steer_input -= 0.4
+			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				steer_input += 0.4
+		else:
+			steer_input = 0.0
 			
 		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 			if is_on_floor():
@@ -272,19 +319,20 @@ func collect_token(value, color):
 	if total_token >= 3:
 		hide_token_ui()
 	
+	play_token_pickup_sound(color)
 	if color == "yellow":
 		token_yellow += value
-		if token_yellow >= 10 and not level_yellow_triggered:
+		if token_yellow >= 3 and not level_yellow_triggered:
 			trigger_level_swap("yellow")
 	elif color == "green":
 		token_green += value
-		if token_green >= 10 and not level_green_triggered:
+		if token_green >= 1 and not level_green_triggered:
 			trigger_level_swap("green")
 	elif color == "pink":
 		token_pink += value
 		if current_level == "black" and token_pink >= 4:
 			trigger_level_swap("pink")
-		elif token_pink >= 1 and current_level != "pink":
+		elif token_pink >= 2 and current_level != "pink":
 			trigger_level_swap("pink")
 	update_ui()
 
@@ -308,7 +356,11 @@ func trigger_level_swap(color):
 	velocity = Vector3.ZERO
 	var text = "Collected: " + str(token_count) + "\nGoing to " + color + " level"
 
+	play_level_switch_sound(color)
+
 	await ui.show_transition(text)
+
+	update_bgm_for_level(color)
 	
 	print("--- 触发跳转，目标颜色是: ", color, " ---")
 	
@@ -319,7 +371,7 @@ func trigger_level_swap(color):
 	
 	if color == "pink":
 		if pink_enter_count >= 2:
-			print("🚫 Pink 已锁定")
+			is_transferring = false
 			return
 		
 		pink_enter_count += 1
@@ -366,14 +418,14 @@ func trigger_level_swap(color):
 	await get_tree().physics_frame
 	
 	if color == "yellow":
-		global_position = start_position + Vector3(0.2, 12.0, 40)
+		global_position = start_position + Vector3(-2, 20.0, 28)
 
 	elif color == "pink":
 		print("Pink 次数:", pink_enter_count)
 
 		if pink_enter_count == 1:
 			print("第一次位置")
-			global_position = start_position + Vector3(-2, 10, 0)
+			global_position = start_position + Vector3(-1, 10, -5)
 
 		elif pink_enter_count == 2:
 			print("第二次位置")
@@ -439,9 +491,20 @@ func trigger_level_swap(color):
 	# 解除冻结（恢复移动）
 	# =========================
 	await get_tree().create_timer(0.2).timeout
+
 	is_transferring = false
+	can_auto_forward = false
+	velocity.z = 0
+
+	await get_tree().create_timer(3.0).timeout
+
+	can_auto_forward = true
+	
 func return_to_black():
 	print("开始返回...")
+	play_level_switch_sound("black")
+	update_bgm_for_level("black")
+	
 	is_transferring = true
 	falling_timer = 0.0
 	velocity = Vector3.ZERO # 必须重置速度
@@ -547,3 +610,31 @@ func show_token_ui():
 
 func hide_token_ui():
 	ui.get_node("TokenHint").visible = false
+
+#music
+func update_bgm_for_level(level_color: String) -> void:
+	if not bgm_pitch_by_level.has(level_color):
+		level_color = "black"
+
+	bgm_player.pitch_scale = bgm_pitch_by_level[level_color]
+
+	if not bgm_player.playing:
+		bgm_player.play()
+
+
+func play_level_switch_sound(level_color: String) -> void:
+	if not bgm_pitch_by_level.has(level_color):
+		level_color = "black"
+
+	level_switch_player.stop()
+	level_switch_player.pitch_scale = bgm_pitch_by_level[level_color]
+	level_switch_player.play()
+
+
+func play_token_pickup_sound(token_color: String) -> void:
+	if not token_pitch_by_color.has(token_color):
+		token_color = "normal"
+
+	token_pickup_player.stop()
+	token_pickup_player.pitch_scale = token_pitch_by_color[token_color]
+	token_pickup_player.play()
