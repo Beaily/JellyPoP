@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ebq266m7ly7q"]
+[gd_scene load_steps=4 format=3 uid="uid://ebq266m7ly7q"]
 
 [ext_resource type="Script" uid="uid://kbr0btupvcrg" path="res://canvas_layer.gd" id="1_5oaki"]
+[ext_resource type="Texture2D" uid="uid://bsj1wvk0v0nkq" path="res://Arts/精灵-0002-Sheet.png" id="2_q85f0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5oaki"]
 font_size = 21
@@ -11,6 +12,7 @@ outline_color = Color(0.756863, 0.141176, 0.141176, 1)
 script = ExtResource("1_5oaki")
 
 [node name="JumpLabel" type="RichTextLabel" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -47,17 +49,13 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 29
 text = "Scroll to MOVE"
 
-[node name="Arrow" type="Label" parent="."]
+[node name="Arrow" type="TextureRect" parent="."]
 visible = false
-offset_left = 267.0
-offset_top = 74.0
-offset_right = 362.0
-offset_bottom = 154.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 46
-text = "← →"
+offset_left = 281.0
+offset_top = 87.0
+offset_right = 345.0
+offset_bottom = 151.0
+texture = ExtResource("2_q85f0")
 
 [node name="TokenHint" type="RichTextLabel" parent="."]
 visible = false
@@ -94,6 +92,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 1.0
+offset_right = 5.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
