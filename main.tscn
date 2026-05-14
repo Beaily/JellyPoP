@@ -176,11 +176,19 @@ current = true
 size = 20.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12862, 4.44749, -5.28919)
-light_color = Color(0.752941, 0.129412, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12862, 6.67423, -2.74435)
+light_color = Color(0.774641, 0.134365, 1.92523e-07, 1)
 light_energy = 4.778
 omni_range = 8.909
 omni_attenuation = -4.555
+
+[node name="SpeedLabel3D" type="Label3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.70478, 0)
+visible = false
+pixel_size = 0.01
+billboard = 1
+text = "speed+1"
+font_size = 110
 
 [node name="Level_Black" parent="." instance=ExtResource("2_0xm2m")]
 

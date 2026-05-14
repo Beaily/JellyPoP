@@ -86,6 +86,8 @@ var token_pitch_by_color = {
 @onready var cam_back = $Camera3D2
 @onready var cam_farside = $Camera3D3
 
+@onready var speed_label = $SpeedLabel3D
+
 # =========================
 # 初始化
 # =========================
@@ -326,10 +328,12 @@ func collect_token(value, color):
 			trigger_level_swap("yellow")
 	elif color == "green":
 		token_green += value
-		if token_green >= 1 and not level_green_triggered:
+		if token_green >= 4 and not level_green_triggered:
 			trigger_level_swap("green")
 	elif color == "pink":
 		token_pink += value
+		show_speed_text()
+		
 		if current_level == "black" and token_pink >= 4:
 			trigger_level_swap("pink")
 		elif token_pink >= 2 and current_level != "pink":
@@ -551,6 +555,22 @@ func return_to_black():
 # =========================
 # UI 与 结束
 # =========================
+func show_speed_text():
+	if speed_label == null:
+		return
+
+	speed_label.text = "speed+1"
+	speed_label.visible = true
+	speed_label.modulate.a = 1.0
+	speed_label.position = Vector3(0, 2.2, 0)
+
+	var tween = create_tween()
+	tween.tween_property(speed_label, "position", Vector3(0, 3.0, 0), 0.5)
+	tween.parallel().tween_property(speed_label, "modulate:a", 0.0, 0.5)
+	tween.tween_callback(func():
+		speed_label.visible = false
+	)
+
 func update_ui():
 	var total = token_yellow + token_green + token_pink
 	var text = "Tokens: " + str(total) + " | "
